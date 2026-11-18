@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PubPay</title>
+<style>
+/* Same visual system as PubPub and TermFlow (CPECMU tools): lavender-blue gradient header with a gold rule,
+   numbered section heads, white rounded panels, gradient KPI cards, gold-edged insight notes. */
+:root{--bg:#f6f5fb;--surface:#ffffff;--surface-2:#faf9fd;--border:#e8e6f1;--text:#2a2c3d;--text-2:#565a70;--muted:#767b92;
+--header-bg:#ebe4f8;--header-bg-2:#dfeaf8;--header-text:#2e2a4a;--header-muted:#615d7e;--nav-border:rgba(46,42,74,.18);--nav-hover:rgba(46,42,74,.07);
+--purple-soft:#f2edfa;--gold:#f2d58a;--gold-ink:#1d1600;--brand:#7354b3;--accent:#8566c2;--link:#6b4fa8;--focus:#e5b94a;--on-accent:#ffffff;
+--k1:linear-gradient(135deg,#e2e8fc,#ccd7f6);--k2:linear-gradient(135deg,#eee3fa,#dccbf3);--k5:linear-gradient(135deg,#fcf1cf,#f5e2a8);--k3:linear-gradient(135deg,#dcf1ea,#c2e5da);
+--kpi-text:#2a2c3d;--kpi-ico:rgba(255,255,255,.6);--kpi-glow:rgba(255,255,255,.3);
+--banner-bg:#fdf4dc;--banner-text:#5a4300;
+--shadow:0 1px 2px rgba(42,44,61,.04),0 4px 14px rgba(42,44,61,.05)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14172a;--surface:#1c2036;--surface-2:#22273f;--border:#323955;--text:#ebedf6;--text-2:#c3c7da;--muted:#9ba2bd;
+--header-bg:#26213f;--header-bg-2:#1e2a46;--header-text:#eeebf9;--header-muted:#b7b3d1;--nav-border:rgba(255,255,255,.22);--nav-hover:rgba(255,255,255,.1);
+--purple-soft:#2b2645;--gold:#e6cc85;--brand:#e6cc85;--accent:#c2adef;--link:#cdbaf5;--on-accent:#1b1d2b;
+--k1:linear-gradient(135deg,#343e66,#434f80);--k2:linear-gradient(135deg,#3d3465,#52447d);--k5:linear-gradient(135deg,#4e4523,#64582d);--k3:linear-gradient(135deg,#23463d,#2d5a4e);
+--kpi-text:#f1effa;--kpi-ico:rgba(255,255,255,.12);--kpi-glow:rgba(255,255,255,.06);--banner-bg:#3a3214;--banner-text:#f3dc95;
+--shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.22);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14172a;--surface:#1c2036;--surface-2:#22273f;--border:#323955;--text:#ebedf6;--text-2:#c3c7da;--muted:#9ba2bd;
+--header-bg:#26213f;--header-bg-2:#1e2a46;--header-text:#eeebf9;--header-muted:#b7b3d1;--nav-border:rgba(255,255,255,.22);--nav-hover:rgba(255,255,255,.1);
+--purple-soft:#2b2645;--gold:#e6cc85;--brand:#e6cc85;--accent:#c2adef;--link:#cdbaf5;--on-accent:#1b1d2b;
+--k1:linear-gradient(135deg,#343e66,#434f80);--k2:linear-gradient(135deg,#3d3465,#52447d);--k5:linear-gradient(135deg,#4e4523,#64582d);--k3:linear-gradient(135deg,#23463d,#2d5a4e);
+--kpi-text:#f1effa;--kpi-ico:rgba(255,255,255,.12);--kpi-glow:rgba(255,255,255,.06);--banner-bg:#3a3214;--banner-text:#f3dc95;
+--shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.22);color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{text-size-adjust:100%;-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:12px}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Thai","Helvetica Neue",Arial,sans-serif;overflow-x:hidden}
+a{color:var(--link)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+button,input,select{font:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* header */
+header.top{background:linear-gradient(100deg,var(--header-bg),var(--header-bg-2));color:var(--header-text);border-bottom:3px solid var(--gold)}
+header.top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-block:14px}
+.brand{flex:1 1 420px;min-width:0}
+.brand h1{margin:0;font-size:22px;line-height:1.2;letter-spacing:.2px;font-weight:750}
+.brand h1 .cmu{color:var(--brand)}
+.brand h1 .expand{font-size:15px;font-weight:500;color:var(--header-muted);margin-left:6px;white-space:nowrap}
+.brand h1 .expand b{color:var(--header-text);font-weight:700}
+.brand .sub{margin:3px 0 0;color:var(--header-muted);font-size:13px}
+.sec-nav{display:flex;gap:6px;flex-wrap:wrap;flex-basis:100%}
+.sec-nav a{color:var(--header-text);text-decoration:none;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--nav-border)}
+.sec-nav a:hover{background:var(--nav-hover)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctl-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-right:6px;font-weight:600}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:2px;background:var(--surface)}
+.seg button{appearance:none;border:0;background:transparent;color:var(--text);font-size:13px;font-weight:600;padding:5px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink)}
+.banner{background:var(--banner-bg);color:var(--banner-text);font-size:13px}
+.banner .wrap{padding-block:7px}
+.banner a{color:inherit}
+
+/* sections */
+main{padding-block:18px 8px}
+section.sec{margin-bottom:26px}
+section.sec+section.sec,#crit>section.sec{border-top:1px solid var(--border);padding-top:22px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:6px 0 14px}
+.sec-head h2{margin:0;font-size:22px;font-weight:750;display:flex;align-items:center;gap:10px;text-wrap:balance}
+.sec-head .hint{color:var(--muted);font-size:13px;margin:0;flex-basis:100%}
+.sec-no{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:14px;font-weight:700;flex:none}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:var(--shadow);min-width:0}
+.panel h3{margin:0 0 2px;font-size:15px;font-weight:700}
+.panel .hint{margin:0 0 12px;font-size:12px;color:var(--muted)}
+.insight{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--gold);font-size:13.5px;color:var(--text-2)}
+.insight b{color:var(--text)}
+.insight p{margin:0}.insight ul{margin:0;padding-left:18px}.insight li+li{margin-top:4px}.insight p+p{margin-top:6px}
+.insight.soft{background:var(--surface-2)}
+.insight.idle{display:flex;align-items:center;justify-content:center;text-align:center;min-height:180px;margin-top:0;border:1px dashed var(--border);background:var(--surface-2);color:var(--muted);font-size:15px;font-weight:600;letter-spacing:.02em}.insight.idle p{margin:0}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
+#crit .panel+.two,#crit .panel+.panel{margin-top:14px}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:14px;align-items:start}
+.adder{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;padding:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px}
+.adder label,.field>label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.adder select{width:100%;height:42px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-size:15px;padding:0 8px}
+.add{height:42px;padding:0 18px;border:0;border-radius:999px;background:var(--accent);color:var(--on-accent);font-weight:700;cursor:pointer;white-space:nowrap}
+.add:disabled{opacity:.5;cursor:default}
+.lh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:16px 0 6px}
+.lh b{font-size:14px}
+.clr{border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:600;cursor:pointer;border-radius:999px;padding:4px 12px;min-height:30px}
+.clr:hover:not(:disabled){background:var(--purple-soft)}.clr:disabled{opacity:.5;cursor:default}
+.plist{list-style:none;margin:0;padding:0;border-top:1px solid var(--border);counter-reset:p}
+.plist li{display:grid;grid-template-columns:24px minmax(0,1fr) 36px;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid var(--border)}
+.pm{display:grid;gap:6px;margin-top:8px}
+.pm .r,.perp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:7px 10px;border-radius:10px;color:var(--kpi-text)}
+.pm .top{background:var(--k3)}.pm .gr{background:var(--k5);grid-template-columns:minmax(0,1fr)}.pm .gr .choice{justify-content:flex-start}a.opt{color:var(--link);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;min-height:32px}.perp .k small{display:block}a.opt:hover{background:var(--purple-soft)}.pm .uni{background:var(--k2)}.perp{background:var(--k1);margin-top:10px}
+.pm .none{background:var(--surface-2);color:var(--muted);grid-template-columns:minmax(0,1fr)}
+.pm .k,.perp .k{font-size:13px;font-weight:600}.pm .k small,.perp .k small{font-weight:400;color:inherit;opacity:.8}
+.pm .amt,.perp .amt{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.choice{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.choice .opt{padding:3px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:12.5px;white-space:nowrap}
+.plist .choice b{display:inline;font-weight:700}
+.choice .or{font-size:12px;font-weight:700;color:inherit;text-transform:uppercase}
+.plist li::before{counter-increment:p;content:counter(p);display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--purple-soft);color:var(--link);font-size:11.5px;font-weight:700}
+.plist b{display:block;font-weight:600}.plist small{display:block;color:var(--muted);font-size:12.5px}
+.plist:not(.dl) li{align-items:center}.plist.dl li{grid-template-columns:24px minmax(0,1fr)}.plist.dl:empty,.insight:empty{display:none}
+.plist li.empty{display:block;color:var(--muted);padding:14px 0}.plist li.empty::before{content:none}
+.x{width:36px;height:36px;border:1px solid var(--border);border-radius:50%;background:var(--surface);color:var(--muted);font-size:18px;line-height:1;cursor:pointer}
+.x:hover{color:var(--link);background:var(--purple-soft)}
+.field{margin-top:14px}
+.money{display:flex;align-items:center;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.money span{padding:0 12px;color:var(--muted);font-size:13px}
+.money input{flex:1;min-width:0;height:44px;border:0;background:transparent;color:var(--text);font-size:16px;text-align:right;padding-right:10px;font-variant-numeric:tabular-nums;border-radius:10px}
+.fhint{font-size:12px;color:var(--muted);margin-top:4px}
+
+.vt{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.vt h3{margin:0}.vt span{font-size:12px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.kpi{position:relative;color:var(--kpi-text);border-radius:14px;padding:14px 14px 12px;min-height:104px;box-shadow:var(--shadow);overflow:hidden;display:flex;gap:10px;align-items:flex-start}
+.kpi::after{content:"";position:absolute;right:-30px;bottom:-40px;width:120px;height:120px;border-radius:50%;background:var(--kpi-glow);pointer-events:none}
+.kpi.k2{background:var(--k2)}.kpi.k1{background:var(--k1)}.kpi.k5{background:var(--k5)}.kpi.k3{background:var(--k3)}
+.kpi .ico{flex:0 0 34px;width:34px;height:34px;border-radius:10px;background:var(--kpi-ico);display:grid;place-items:center}
+.kpi .ico svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.kpi .body{min-width:0;flex:1}
+.kpi .lbl{font-size:12px;font-weight:600;opacity:.92;text-transform:uppercase;letter-spacing:.05em}
+.kpi .val{font-size:30px;font-weight:800;line-height:1.1;margin-top:2px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.kpi .val.rng{font-size:22px;white-space:normal}
+.kpi .val small{font-size:15px;font-weight:600;opacity:.9;margin-left:4px}
+.kpi .meta{font-size:12px;opacity:.92;margin-top:3px}
+.lines{margin:14px 0 0;padding:0;list-style:none;border-top:1px solid var(--border)}
+.lines li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:9px 0;border-bottom:1px dashed var(--border)}
+.lines li.off{color:var(--muted)}
+.lines b{font-weight:600}.lines small{display:block;color:var(--muted);font-size:12.5px}
+.amt{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
+.acts{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.acts small{color:var(--muted);font-size:12.5px}
+.btn{appearance:none;border:1px solid var(--border);background:var(--gold);color:var(--gold-ink);font-size:13px;font-weight:700;padding:7px 16px;border-radius:999px;cursor:pointer}
+.btn:hover{filter:brightness(.97)}
+
+/* tables */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:600;vertical-align:bottom}
+tbody tr:hover{background:var(--surface-2)}
+tr.gr td{font-weight:700;color:var(--link);background:var(--purple-soft)}
+td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--purple-soft);color:var(--link);white-space:nowrap}
+.tag.g{background:var(--banner-bg);color:var(--banner-text)}
+.panel ul{margin:0;padding-left:18px}.panel li{margin-bottom:5px}
+.panel p{margin:0 0 10px}
+.refs{margin:0;padding-left:20px;color:var(--text-2)}.refs li{margin-bottom:4px}
+
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.lk{display:grid;gap:2px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:14px;box-shadow:var(--shadow);text-decoration:none;color:var(--text)}
+.lk:hover{background:var(--purple-soft)}
+.lk-t{font-size:15px;font-weight:700}.lk-d{font-size:13px;color:var(--text-2)}.lk-h{font-size:12px;font-weight:600;color:var(--link);margin-top:4px}
+
+/* footer */
+footer{color:var(--muted);font-size:12px;padding-block:22px 28px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:4px 16px;justify-content:space-between}
+footer .legal{flex-basis:100%;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);line-height:1.55}
+footer .legal p{margin:0 0 8px;max-width:90ch}
+footer b{color:var(--text)}
+
+@media(max-width:900px){.calc,.two{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.adder{grid-template-columns:minmax(0,1fr)}.add{width:100%}
+.pm .r{grid-template-columns:minmax(0,1fr)}.choice{justify-content:flex-start}
+.brand h1 .expand{display:block;margin:2px 0 0}
+.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-bottom:1px solid var(--border)}.stack td{display:flex;justify-content:space-between;gap:12px;border:0;padding:3px 0;text-align:right}.stack td::before{content:attr(data-l);color:var(--muted);text-align:left}.stack tr.gr td{display:block;text-align:left;padding:6px 8px}.stack tr.gr td::before{content:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<div class="brand">
+<h1><span class="cmu">PubPay</span><span class="expand"><b>Pub</b>lication <b>Pay</b>out</span></h1>
+<p class="sub" data-i="sub"></p>
+</div>
+<div class="controls"><span class="ctl-label" data-i="langL"></span>
+<div class="seg" role="group" aria-label="Language"><button type="button" data-l="th" aria-pressed="true">ไทย</button><button type="button" data-l="en" aria-pressed="false">English</button></div></div>
+<nav class="sec-nav" aria-label="Sections"><a href="#s1" data-i="n1"></a><a href="#s2" data-i="n2"></a><a href="#s3" data-i="n3"></a></nav>
+</div></header>
+
+<main class="wrap">
+<section class="sec" id="s1">
+<div class="sec-head"><h2><span class="sec-no">1</span><span data-i="h1"></span></h2><p class="hint" data-i="h1h"></p></div>
+<div class="calc">
+<div class="panel">
+<h3 data-i="g1"></h3><p class="hint" data-i="g1h"></p>
+<div class="adder">
+<div><label for="nt" data-i="lType"></label><select id="nt"></select></div>
+<button class="add" type="button" id="add" data-i="add"></button>
+</div>
+<div class="lh"><b id="lcount"></b><button class="clr" type="button" id="clr" data-i="clr"></button></div>
+<ol class="plist" id="plist"></ol>
+</div>
+
+<div class="panel voucher" aria-live="polite">
+<div class="vt"><h3 data-i="vt1"></h3><span data-i="vt2"></span></div>
+<ol class="plist dl" id="dlist"></ol>
+<div class="perp" id="perp" hidden></div>
+<div class="insight" id="why"></div>
+</div>
+</div>
+</section>
+<div id="crit"></div>
+</main>
+
+<footer><div class="wrap">
+<div class="legal" data-i="legal"></div>
+</div></footer>
+
+<script>
+{
+const ORA='https://ora.oou.cmu.ac.th/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%A5%E0%B8%B1%E0%B8%A2%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87-8/';
+const MIS='https://research.mis.cmu.ac.th';
+const CORE='https://portal.core.edu.au/conf-ranks/';
+const UNI='https://ora.oou.cmu.ac.th/cp2569/';
+const FAC='https://research.eng.cmu.ac.th/news/scholarship/%E0%B8%97%E0%B8%B8%E0%B8%99%E0%B8%A7%E0%B8%B4%E0%B8%88%E0%B8%B1%E0%B8%A2/interconf2027/';
+const UNIP='https://ora.oou.cmu.ac.th/wp-content/uploads/2026/06/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%A5%E0%B8%B1%E0%B8%A2%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88-%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%AA-1.pdf';
+const FACP='https://research.eng.cmu.ac.th/wp-content/uploads/2026/04/429-68-%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%97%E0%B8%B8%E0%B8%99%E0%B9%80%E0%B8%AA%E0%B8%99%E0%B8%AD%E0%B8%9C%E0%B8%A5%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%99%E0%B8%B2%E0%B8%99%E0%B8%B2%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4.pdf#page=2.00';
+const UR={q1:[15000,15000],q2:[14000,14000],q3:[13000,13000],q4:[12000,12000]};
+const AMT={q1:[20000,5000],q2:[15000,0],q3:[10000,0],q4:[10000,0],cf:[0,0]};
+const tbl=(cols,rows,L)=>`<div class="tw"><table class="stack"><thead><tr>${cols.map((c,i)=>`<th${L.includes(i)?' class="n"':''}>${c}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>typeof r==='string'?`<tr class="gr"><td colspan="${cols.length}">${r}</td></tr>`:`<tr>${r.map((v,i)=>`<td${L.includes(i)?' class="n"':''} data-l="${cols[i]}">${v}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+const card=(u,h,d,host)=>`<a class="lk" href="${u}" target="_blank" rel="noopener"><span class="lk-t">${h}</span><span class="lk-d">${d}</span><span class="lk-h">${host} ↗</span></a>`;
+const sec=(n,id,h,hint,body)=>`<section class="sec" id="${id}"><div class="sec-head"><h2><span class="sec-no">${n}</span>${h}</h2>${hint?`<p class="hint">${hint}</p>`:''}</div>${body}</section>`;
+
+const D={
+th:{
+ title:'PubPay · ค่าตอบแทน Top-up และเงินสนับสนุน CPE',
+ sub:'CPECMU · Unofficial',
+ langL:'ภาษา',n1:'คำนวณสิทธิ์',n2:'หลักเกณฑ์และเงื่อนไข',n3:'อ้างอิง',
+
+ legal:'<p><b>ผลลัพธ์เป็นการประมาณการ</b> สิทธิ์จริงขึ้นกับการพิจารณาของคณะและภาควิชา ตามประกาศและมติที่ใช้บังคับ</p><p>หน้านี้ไม่ส่งข้อมูลที่ท่านกรอกไปที่ใด ภาษาที่เลือกจะจำไว้ในเบราว์เซอร์นี้เท่านั้น</p>',
+ h1:'คำนวณสิทธิ์',h1h:'ระบุผลงาน ระบบจะแสดงวงเงินที่มีสิทธิ์เบิกและแหล่งเงิน',
+ g1:'ผลงาน',g1h:'เลือกประเภทแล้วเพิ่มผลงานทีละรายการ',
+ lType:'ประเภทผลงาน',add:'เพิ่มผลงาน',clr:'ล้างรายการ',list:n=>`รายการผลงาน (${n})`,rm:(i,t)=>`ลบรายการที่ ${i} ${t}`,
+ empty:'ยังไม่มีผลงาน เลือกประเภทแล้วกด "เพิ่มผลงาน"',
+ T:{q1:'บทความวารสาร Q1',q2:'บทความวารสาร Q2',q3:'บทความวารสาร Q3',q4:'บทความวารสาร Q4',cf:'บทความการประชุมวิชาการ'},
+ subJ:'ค่าตอบแทน Top-up',subCf:'ใช้สิทธิ์เงินสนับสนุนการเผยแพร่',paCf:'เงินสนับสนุน',full:'เต็มจำนวน',
+ fR:'ค่าตอบแทน Top-up',fS:'วงเงินสนับสนุน',
+ vt1:'สิทธิ์ตามรายการผลงาน',vt2:'ต่อคน ต่อปีงบประมาณ',baht:'บาท',fac:'เงินคณะ',dept:'เงินภาควิชา',
+ l1:(i,s)=>`ค่าตอบแทน Top-up · รายการที่ ${i} ${s}`,srcF:(a,b)=>`คณะ ${a} + ภาควิชา ${b}`,srcD:'ภาควิชา',l1none:['ค่าตอบแทน Top-up ผลงานวารสาร','ไม่มีผลงานวารสาร'],
+ l2:'วงเงินสนับสนุน',s2none:'ต้องมีผลงานอย่างน้อย 1 รายการ',s2max:'ภาควิชา 10,000 ต่อปีงบ · ขออนุมัติก่อนใช้',
+ wNone:'รอปลดล็อกสิทธิ์',
+ wJ:(n,a)=>`วารสาร ${n} รายการ: ค่าตอบแทน Top-up รวม <b>${a} บาท</b> และมีสิทธิ์เงินสนับสนุนการเผยแพร่อีก`,
+ wCf:n=>`การประชุมวิชาการ ${n} รายการ: ไม่มีค่าตอบแทน Top-up แต่มีสิทธิ์เงินสนับสนุนการเผยแพร่`,
+ wBud:'<b>วงเงินสนับสนุนเป็นงบภาควิชา ต้องแจ้งความประสงค์และขออนุมัติก่อนใช้ โดยพิจารณาผ่าน กบภ.</b> จึงเบิกตามใบเสร็จได้',
+ wCap:n=>`วงเงินสนับสนุนคิดต่อคนต่อปีงบประมาณ มี ${n} ผลงานก็ไม่เกิน 10,000 บาท`,
+ wMul:'ผลงานที่ขอรับการสนับสนุนต้องมี Corresponding Author เพียงท่านเดียว',
+ fU:'สิทธิ์มหาวิทยาลัย',
+ uMeta:x=>`<b>ค่าตอบแทน</b>รวม <b>หรือ</b> เลือกเบิก <b>APC</b> ตามจริงแทนเป็นรายเรื่อง${x?' (Q2–Q4 ≤ 60,000)':''} · ยื่นมหาวิทยาลัย · <a href="#apc">เงื่อนไข</a>`,
+
+ pUni:'มหาวิทยาลัย',pPick:'เลือก 1 อย่าง',pRw:'ค่าตอบแทน',pOr:'หรือ',pApc:'APC',pAct:'ตามจริง',pNone:'ไม่มีค่าตอบแทน Top-up · ใช้วงเงินสนับสนุนต่อคนด้านล่าง',pGr:'ทุนนำเสนอผลงานวิชาการระดับนานาชาติ',pGrS:'สำหรับคณาจารย์ · ขอได้ทั้งมหาวิทยาลัยและคณะ',pGrFd:'คณะ: ตามจ่ายจริงไม่เกิน 15,000 บาท · 1 เรื่อง/คน/ปีงบประมาณ',pGrU:'มหาวิทยาลัย',pGrUP:'ประกาศ PDF',pGrF:'คณะ ≤ 15,000',pAnd:'และ',pp:'ต่อคน ต่อปีงบ · ภาควิชา · ขออนุมัติก่อนใช้',
+ wGr:'บทความการประชุมวิชาการระดับนานาชาติ: คณาจารย์ขอ<b>ทุนนำเสนอผลงานวิชาการระดับนานาชาติ</b>ได้ทั้งจาก<a href="'+UNI+'" target="_blank" rel="noopener">มหาวิทยาลัย</a> (<a href="'+UNIP+'" target="_blank" rel="noopener">ประกาศ</a>) และ<a href="'+FAC+'" target="_blank" rel="noopener">คณะ</a> (<a href="'+FACP+'" target="_blank" rel="noopener">ประกาศ</a>: คณะสนับสนุนตามจ่ายจริงไม่เกิน 15,000 บาท 1 เรื่อง/คน/ปีงบประมาณ)',
+ lU:(i,s)=>`สิทธิ์มหาวิทยาลัย · รายการที่ ${i} ${s}`,uSub:(r,q1)=>`ค่าตอบแทนฯ ${r} หรือ APC ตามจริง${q1?'':' ≤ 60,000'}`,
+ wUni:'<b>สิทธิ์ระดับมหาวิทยาลัย (ยื่นขอแยกต่างหาก):</b> เลือกขอรับค่าตอบแทน หรือ ค่า APC ได้เพียงอย่างเดียวต่อ 1 ผลงาน ทั้งนี้ แม้จะได้รับสิทธิ์จากมหาวิทยาลัยแล้ว ยังสามารถขอรับค่าตอบแทน Top-up จากคณะและภาควิชาเพิ่มเติมได้',
+ wQ1:'ส่วนของคณะ: Scopus Q1 อายุผลงานไม่เกิน 1 ปี',
+ crit:()=>sec(2,'s2','หลักเกณฑ์และเงื่อนไข','ค่าตอบแทน Top-up คิดต่อผลงาน เงินสนับสนุนการเผยแพร่คิดต่อคนต่อปีงบประมาณ',
+  `<div class="panel">${tbl(['รายการ','อัตรา (บาท)','แหล่งเงิน','วิธีเบิก'],[
+  ['ค่าตอบแทน Top-up วารสาร Q1','20,000/ผลงาน','คณะ 5,000 + ภาควิชา 15,000','ต่อผลงาน'],
+  ['ค่าตอบแทน Top-up วารสาร Q2','15,000/ผลงาน','ภาควิชา','ต่อผลงาน'],
+  ['ค่าตอบแทน Top-up วารสาร Q3–Q4','10,000/ผลงาน','ภาควิชา','ต่อผลงาน'],
+  ['วงเงินสนับสนุน (ประชุมวิชาการ/วารสาร)','10,000/คน/ปีงบ','ภาควิชา','<b>แจ้งความประสงค์และขออนุมัติก่อนใช้ พิจารณาผ่าน กบภ.</b> แล้วเบิกตามใบเสร็จ ใช้ร่วมกับค่าตอบแทน Top-up ได้'],
+  ],[1])}</div>
+  <div class="panel"><h3>เงื่อนไขการขอรับเงินสนับสนุนและค่าตอบแทน</h3><ul>
+  <li><b>คุณสมบัติพื้นฐานของผู้ขอและผลงาน</b><ul style="margin:4px 0 0;padding-left:20px">
+   <li><b>ผู้ขอ:</b> ต้องเป็น First Author หรือ Corresponding Author (โดยผลงานต้องมี Corresponding Author เพียงคนเดียว) และไม่อยู่ระหว่างลาศึกษาต่อเต็มเวลา</li>
+   <li><b>สังกัด (Affiliation):</b> ระบุ <b>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University</b> เป็นอย่างน้อย</li>
+   <li><b>อายุผลงานไม่เกิน 1 ปี</b></li></ul></li>
+  <li><b>บทความวารสาร (Journal)</b> เงินของภาควิชาไม่ใช่ค่าตีพิมพ์ (APC) โดยสามารถขอรับเงินได้ครบทั้ง 3 ระดับตามลำดับ ดังนี้<ol style="margin:4px 0 0;padding-left:20px">
+   <li><b>มหาวิทยาลัย (ยื่นขอแยกต่างหาก):</b> 1 ผลงานเลือกขอรับค่าตอบแทน หรือ ค่า APC ได้เพียงอย่างเดียว (ตามประกาศ มช. ฉบับที่ 13/2566) ทั้งนี้ แม้จะได้รับสิทธิ์จากมหาวิทยาลัยแล้ว ยังสามารถขอรับค่าตอบแทน Top-up จากคณะและภาควิชาเพิ่มเติมได้</li>
+   <li><b>คณะ (Top-up 5,000 บาท):</b> สำหรับบทความ Scopus Q1 ที่ปรากฏในรายงานตัวชี้วัดรายเดือนของคณะ โดยจ่ายให้ 1 คนต่อบทความ (ตามประกาศ มช. ฉบับที่ 4/2569)</li>
+   <li><b>ภาควิชา:</b> ค่าตอบแทน Top-up ตามควอไทล์</li></ol></li>
+  <li><b>บทความการประชุมวิชาการระดับนานาชาติ (International Conference) และวงเงินสนับสนุน</b><ul style="margin:4px 0 0;padding-left:20px">
+   <li><b>ระดับมหาวิทยาลัยและคณะ:</b> ขอทุนนำเสนอผลงานได้ทั้งจากมหาวิทยาลัย (<a href="${UNIP}" target="_blank" rel="noopener">ดูประกาศ</a>) และคณะ (<a href="${FACP}" target="_blank" rel="noopener">ดูประกาศ</a>)</li>
+   <li><b>ระดับภาควิชา</b> (ต้องแจ้งความประสงค์และขออนุมัติผ่าน กบภ. ก่อนใช้สิทธิ์ จึงจะเบิกตามใบเสร็จได้):<ol style="margin:4px 0 0;padding-left:20px">
+    <li><b>วงเงินสนับสนุนปกติ (10,000 บาท):</b> สนับสนุนค่าใช้จ่ายตามจ่ายจริงภายใต้วงเงินที่ได้รับจัดสรร</li>
+    <li><b>วงเงินสนับสนุนพิเศษ (CORE A*):</b> ขอเบิกได้เต็มจำนวนตามใบเสร็จ โดยไม่หักจากโควตาวงเงินปกติ 10,000 บาท โดย CORE A* อ้างอิงอันดับจาก <a href="${CORE}" target="_blank" rel="noopener">ICORE Conference Portal</a> ทั้งนี้ สงวนสิทธิ์เฉพาะบทความใน Main Track เท่านั้น (ไม่รวม workshop, tutorial, demo, poster, doctoral consortium, findings หรือ companion track ที่จัดร่วมกัน แม้จะตีพิมพ์ใน proceedings เล่มเดียวกัน)</li></ol></li></ul></li></ul></div>
+  <div class="panel" id="apc"><h3>ค่า APC: ระเบียบของมหาวิทยาลัย</h3>
+  <p class="hint"><a href="${ORA}" target="_blank" rel="noopener">ประกาศ มช. ฉบับที่ 13/2566</a> ผลงาน 1 เรื่องเลือกได้อย่างเดียว ระหว่างค่าตอบแทนฯ หรือค่าตีพิมพ์ (APC)</p>
+  ${tbl(['ควอไทล์ (SJR)','ค่าตอบแทนฯ','หรือ APC'],[['Q1','15,000','ตามจริง'],['Q2','14,000','ตามจริง ≤ 60,000'],['Q3','13,000','ตามจริง ≤ 60,000'],['Q4','12,000','ตามจริง ≤ 60,000']],[1,2])}
+  <div class="insight soft"><ul><li>จ่าย 1 ผู้ประพันธ์ต่อผลงาน ใช้ควอไทล์ที่ดีที่สุด ไม่รวมผลงานวิทยานิพนธ์หรือที่ได้ทุนผ่าน สบว.</li>
+  <li>APC ไม่รวม Fast Track/ค่าธรรมเนียมพิเศษ ใช้ใบเสร็จฉบับจริง (สำเนา/สลิปแนบ บก.111)</li>
+  <li>ยื่นภายใน 1 ปีจากเดือนที่ตอบรับ ผ่านต้นสังกัด ที่ <a href="${MIS}" target="_blank" rel="noopener">research.mis.cmu.ac.th</a></li></ul></div></div>`)
+ +sec(3,'s3','เอกสารอ้างอิง','',`<div class="panel"><ol class="refs">
+  <li>ประกาศมหาวิทยาลัยเชียงใหม่ ฉบับที่ 4/2569 (Top-up คณะวิศวกรรมศาสตร์)</li>
+  <li>บันทึกข้อความ อว 8393(14).1(5)/520 (12 พ.ย. 2569)</li>
+  <li>ประกาศมหาวิทยาลัยเชียงใหม่ ฉบับที่ 13/2566 (APC) · <a href="${ORA}" target="_blank" rel="noopener">ora.oou.cmu.ac.th</a></li>
+  <li>ประกาศมหาวิทยาลัยเชียงใหม่ ทุนสนับสนุนการนำเสนอผลงานวิชาการระดับนานาชาติ · <a href="${UNIP}" target="_blank" rel="noopener">PDF</a></li>
+  <li>ประกาศคณะวิศวกรรมศาสตร์ แนวทางการสมัครรับทุนเสนอผลงานนานาชาติ (429/68) · <a href="${FACP}" target="_blank" rel="noopener">PDF</a></li>
+  <li>ICORE Conference Portal (อันดับ CORE) · <a href="${CORE}" target="_blank" rel="noopener">portal.core.edu.au/conf-ranks</a></li>
+  <li>มติประชุมกรรมการบริหารภาควิชาวิศวกรรมคอมพิวเตอร์ ครั้งที่ X/2569</li></ol></div>`)
+},
+en:{
+ title:'PubPay · CPE Top-up Rewards and Publication Support',
+ sub:'CPECMU · Unofficial',
+ langL:'Language',n1:'Calculator',n2:'Criteria & conditions',n3:'Sources',
+
+ legal:'<p><b>Results are estimates.</b> Final amounts depend on Faculty and Department review under the announcements and resolutions in force.</p><p>This page sends nothing you enter anywhere. Your language choice is remembered in this browser only.</p>',
+ h1:'Eligibility calculator',h1h:'Enter your publications to see your eligible amount and its funding source.',
+ g1:'Publications',g1h:'Choose a type and add publications one at a time.',
+ lType:'Publication type',add:'Add',clr:'Clear',list:n=>`Publications (${n})`,rm:(i,t)=>`Remove #${i} ${t}`,
+ empty:'No publications yet. Select a type and click "Add".',
+ T:{q1:'Journal article, Q1',q2:'Journal article, Q2',q3:'Journal article, Q3',q4:'Journal article, Q4',cf:'Conference paper'},
+ subJ:'Top-up reward',subCf:'Eligible for publication support',paCf:'Support',full:'Full amount',
+ fR:'Top-up reward',fS:'Support budget',
+ vt1:'Entitlements by publication',vt2:'Per person, per fiscal year',baht:'THB',fac:'Faculty',dept:'Department',
+ l1:(i,s)=>`Top-up reward · #${i} ${s}`,srcF:(a,b)=>`Faculty ${a} + Department ${b}`,srcD:'Department',l1none:['Journal top-up reward','No journal articles'],
+ l2:'Support budget',s2none:'Requires at least one publication',s2max:'Department 10,000 per fiscal year · approval before use',
+ wNone:'Ready to Unlock',
+ wJ:(n,a)=>`${n} journal article(s): top-up reward of <b>${a} THB</b>, plus publication support.`,
+ wCf:n=>`${n} conference paper(s): no top-up reward, but eligible for publication support.`,
+ wBud:'<b>The support budget is department funding and must be requested and approved before use, subject to department executive committee review</b>; it is then reimbursed by receipt.',
+ wCap:n=>`The support budget is per person per fiscal year: ${n} publications share one 10,000 THB limit.`,
+ wMul:'The publication must have a single corresponding author.',
+ fU:'University entitlement',
+ uMeta:x=>`Total <b>reward</b>, <b>or</b> claim the actual <b>APC</b> instead, per article${x?' (Q2–Q4 ≤ 60,000)':''} · apply to the university · <a href="#apc">rules</a>`,
+
+ pUni:'University',pPick:'pick one',pRw:'Reward',pOr:'or',pApc:'APC',pAct:'actual',pNone:'No top-up reward · uses the per-person support budget below',pGr:'International conference presentation grant',pGrS:'For faculty members · from both the university and the Faculty',pGrFd:'Faculty: actual cost up to 15,000 THB · 1 paper per person per fiscal year',pGrU:'University',pGrUP:'announcement PDF',pGrF:'Faculty ≤ 15,000',pAnd:'and',pp:'Per person, per fiscal year · Department · approval before use',
+ wGr:'International conference papers: faculty members can apply for an <b>international conference presentation grant</b> from both the <a href="'+UNI+'" target="_blank" rel="noopener">university</a> (<a href="'+UNIP+'" target="_blank" rel="noopener">announcement</a>) and the <a href="'+FAC+'" target="_blank" rel="noopener">Faculty</a> (<a href="'+FACP+'" target="_blank" rel="noopener">announcement</a>: the Faculty pays actual cost up to 15,000 THB, 1 paper per person per fiscal year).',
+ lU:(i,s)=>`University · #${i} ${s}`,uSub:(r,q1)=>`Reward ${r} or actual APC${q1?'':' ≤ 60,000'}`,
+ wUni:'<b>University entitlement (claimed separately):</b> choose either the reward or the APC, one per article. Even after receiving the university entitlement, you can still claim the Faculty and Department top-up reward.',
+ wQ1:'Faculty portion: Scopus Q1, published within the past year.',
+ crit:()=>sec(2,'s2','Criteria and conditions','Top-up rewards are per article; publication support is per person per fiscal year.',
+  `<div class="panel">${tbl(['Description','Rate (THB)','Funding','Claim'],[
+  ['Top-up reward: journal, Q1','20,000/article','Faculty 5,000 + Department 15,000','Per article'],
+  ['Top-up reward: journal, Q2','15,000/article','Department','Per article'],
+  ['Top-up reward: journal, Q3–Q4','10,000/article','Department','Per article'],
+  ['Support budget (conference/journal)','10,000/person/fiscal year','Department','<b>Request and get approval before use, subject to department executive committee review</b>, then claim by receipt; combinable with the top-up reward'],
+  ],[1])}</div>
+  <div class="panel"><h3>Conditions for support and rewards</h3><ul>
+  <li><b>Basic requirements for the applicant and publication</b><ul style="margin:4px 0 0;padding-left:20px">
+   <li><b>Applicant:</b> must be the first or corresponding author (the publication must have a single corresponding author) and not on full-time study leave</li>
+   <li><b>Affiliation:</b> must include at least <b>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University</b></li>
+   <li><b>Publication age no more than 1 year</b></li></ul></li>
+  <li><b>Journal articles</b>: department money is not an APC. An article can receive funding at all three levels, in this order:<ol style="margin:4px 0 0;padding-left:20px">
+   <li><b>University (claimed separately):</b> each article may claim either the reward or the APC, not both (CMU Announcement No. 13/2566). Even after receiving the university entitlement, you can still claim the Faculty and Department top-up reward.</li>
+   <li><b>Faculty (top-up 5,000 THB):</b> for Scopus Q1 articles listed in the Faculty's monthly indicator report; paid to one author per article (CMU Announcement No. 4/2569)</li>
+   <li><b>Department:</b> top-up reward by quartile</li></ol></li>
+  <li><b>International conference papers and support budget</b><ul style="margin:4px 0 0;padding-left:20px">
+   <li><b>University and Faculty:</b> presentation grants are available from both the university (<a href="${UNIP}" target="_blank" rel="noopener">see announcement</a>) and the Faculty (<a href="${FACP}" target="_blank" rel="noopener">see announcement</a>)</li>
+   <li><b>Department</b> (request and get approval from the department executive committee before use; then claim by receipt):<ol style="margin:4px 0 0;padding-left:20px">
+    <li><b>Regular support budget (10,000 THB):</b> actual expenses within the allocated budget</li>
+    <li><b>Special support (CORE A*):</b> full amount by receipt, not deducted from the regular 10,000 THB budget; CORE A* rank per the <a href="${CORE}" target="_blank" rel="noopener">ICORE Conference Portal</a>. Main track papers only (co-located workshops, tutorials, demos, posters, doctoral consortia, findings or companion tracks do not count, even when published in the same proceedings).</li></ol></li></ul></li></ul></div>
+  <div class="panel" id="apc"><h3>APCs: university rules</h3>
+  <p class="hint">Under <a href="${ORA}" target="_blank" rel="noopener">CMU Announcement No. 13/2566</a>, each article may claim either the university reward or the APC, not both.</p>
+  ${tbl(['Quartile (SJR)','University reward','or APC'],[['Q1','15,000','Actual cost'],['Q2','14,000','Actual, ≤ 60,000'],['Q3','13,000','Actual, ≤ 60,000'],['Q4','12,000','Actual, ≤ 60,000']],[1,2])}
+  <div class="insight soft"><ul><li>One author per article; best quartile applies; excludes thesis work and work funded through the Research Administration Office</li>
+  <li>APCs exclude fast-track and extra fees; original receipts required (copies or slips need form บก.111)</li>
+  <li>Apply within one year of the acceptance month, through your unit, at <a href="${MIS}" target="_blank" rel="noopener">research.mis.cmu.ac.th</a></li></ul></div></div>`)
+ +sec(3,'s3','Sources','',`<div class="panel"><ol class="refs">
+  <li>CMU Announcement No. 4/2569 (Faculty of Engineering top-up)</li>
+  <li>Memorandum อว 8393(14).1(5)/520 (12 Nov 2026)</li>
+  <li>CMU Announcement No. 13/2566 (APC) · <a href="${ORA}" target="_blank" rel="noopener">ora.oou.cmu.ac.th</a></li>
+  <li>CMU announcement: international conference presentation grants · <a href="${UNIP}" target="_blank" rel="noopener">PDF</a></li>
+  <li>Faculty of Engineering announcement: international conference grant guidelines (429/68) · <a href="${FACP}" target="_blank" rel="noopener">PDF</a></li>
+  <li>ICORE Conference Portal (CORE rankings) · <a href="${CORE}" target="_blank" rel="noopener">portal.core.edu.au/conf-ranks</a></li>
+  <li>Resolution of the Department of Computer Engineering Executive Committee, meeting No. X/2569</li></ol></div>`)
+}};
+
+const CAP2=10000,MAXP=20;
+let P=[],lang='th';
+try{const s=localStorage.getItem('cpe-lang');if(s==='en'||s==='th')lang=s}catch(_){}
+const $=id=>document.getElementById(id);
+const f=n=>n.toLocaleString('en-US',{maximumFractionDigits:2});
+const isJ=t=>AMT[t][0]>0;
+const t=()=>D[lang];
+
+function applyLang(){
+  const L=t();
+  document.documentElement.lang=lang;document.title=L.title;
+  document.querySelectorAll('[data-i]').forEach(el=>{const v=L[el.dataset.i];if(typeof v==='string')el.innerHTML=v});
+  document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===lang));
+  const cur=$('nt').value||'q1';
+  $('nt').innerHTML=Object.keys(AMT).map(k=>`<option value="${k}"${k===cur?' selected':''}>${L.T[k]}</option>`).join('');
+  $('crit').innerHTML=L.crit();
+  list();
+}
+
+function list(){
+  const L=t();
+  $('lcount').textContent=L.list(P.length);
+  $('plist').innerHTML=P.length?P.map((p,i)=>`<li><b>${L.T[p.t]}</b><button class="x" type="button" data-i-x="${i}" aria-label="${L.rm(i+1,L.T[p.t])}">×</button></li>`).join(''):`<li class="empty">${L.empty}</li>`;
+  $('add').disabled=P.length>=MAXP;
+  $('clr').disabled=!P.length;
+  render();
+}
+
+function render(){
+  const L=t(),B=' '+L.baht;
+  const J=P.filter(p=>isJ(p.t)),nCf=P.filter(p=>p.t==='cf').length,n=P.length;
+  const t1=J.reduce((a,p)=>a+AMT[p.t][0],0),fac=J.reduce((a,p)=>a+AMT[p.t][1],0);
+
+  $('dlist').innerHTML=P.map(p=>{
+    let rows;
+    if(isJ(p.t)){
+      const[a,fc]=AMT[p.t],u=UR[p.t][0];
+      rows=`<div class="r top"><div class="k">${L.fR}<small>${fc?L.srcF(f(fc),f(a-fc)):L.srcD}</small></div><div class="amt">${f(a)}</div></div>`+
+      `<div class="r uni"><div class="k">${L.pUni}<small>${L.pPick}</small></div><div class="choice"><span class="opt">${L.pRw} <b>${f(u)}</b></span><span class="or">${L.pOr}</span><span class="opt">${L.pApc} <b>${L.pAct}${p.t==='q1'?'':' ≤ 60,000'}</b></span></div></div>`;
+    }else{const lk=(u,x)=>`<a class="opt" href="${u}" target="_blank" rel="noopener">${x} ↗</a>`;
+      rows=`<div class="r gr"><div class="k">${L.pGr}</div><div class="choice">${lk(UNI,L.pGrU)}<span class="or">${L.pAnd}</span>${lk(FAC,L.pGrF)}</div></div>`;}
+    return `<li><div><b>${L.T[p.t]}</b><div class="pm">${rows}</div></div></li>`;
+  }).join('');
+  $('perp').hidden=n===0;
+  $('perp').innerHTML=`<div class="k">${L.fS}<small>${L.pp}</small></div><div class="amt">≤ ${f(CAP2)}</div>`;
+
+  const W=[];
+  if(n===0)W.push(L.wNone);
+  $('why').innerHTML=W.map(w=>`<p>${w}</p>`).join('');
+  $('why').classList.toggle('idle',n===0);
+
+}
+
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{
+  lang=b.dataset.l;try{localStorage.setItem('cpe-lang',lang)}catch(_){}applyLang();
+}));
+$('add').addEventListener('click',()=>{if(P.length<MAXP){P.push({t:$('nt').value});list()}});
+$('plist').addEventListener('click',e=>{
+  const b=e.target.closest('.x');if(!b)return;P.splice(+b.dataset.iX,1);list();
+  (document.querySelector('.plist .x')||$('add')).focus();
+});
+$('clr').addEventListener('click',()=>{P=[];list();$('add').focus()});
+applyLang();
+}
+</script>
+</body>
+</html>
