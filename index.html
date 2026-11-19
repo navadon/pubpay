@@ -76,6 +76,7 @@ section.sec+section.sec,#crit>section.sec{border-top:1px solid var(--border);pad
 #crit .panel+.two,#crit .panel+.panel{margin-top:14px}
 
 /* calculator */
+.asof{margin:8px 0 0!important;font-size:12px;color:var(--muted)}
 .notice{display:flex;gap:12px;align-items:flex-start;margin:0 0 14px;padding:12px 16px;border-radius:12px;background:var(--k5);border:1px solid var(--border);color:var(--text)}.notice p{margin:0;font-size:14px;line-height:1.6}.notice .ni{flex:none;display:grid;place-items:center;width:22px;height:22px;margin-top:1px;border-radius:50%;background:var(--gold-ink);color:var(--gold);font:700 13px/1 Georgia,serif;font-style:italic}
 .calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:14px;align-items:start}
 .adder{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;padding:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px}
@@ -199,6 +200,7 @@ footer b{color:var(--text)}
 <div class="vt"><h3 data-i="vt1"></h3><span data-i="vt2"></span></div>
 <ol class="plist dl" id="dlist"></ol>
 <div class="perp" id="perp" hidden></div>
+<p class="asof" id="asof" data-i="asof" hidden></p>
 <div class="insight" id="why"></div>
 </div>
 </div>
@@ -234,6 +236,7 @@ th:{
 
  legal:'<p><b>ผลลัพธ์เป็นการประมาณการ</b> สิทธิ์จริงขึ้นกับการพิจารณาของคณะและภาควิชา ตามประกาศและมติที่ใช้บังคับ</p><p>หน้านี้ไม่ส่งข้อมูลที่ท่านกรอกไปที่ใด ภาษาที่เลือกจะจำไว้ในเบราว์เซอร์นี้เท่านั้น</p>',
  h1:'จำลองสิทธิ์',h1h:'ลองเลือกประเภทผลงานที่มีหรือกำลังจะมี เพื่อดูสิทธิ์ที่คาดว่าจะได้รับ',
+ asof:'อัตราของมหาวิทยาลัยและคณะ ณ วันที่ 20 พ.ย. 2569',
  notice:'<b>เครื่องมือจำลองสิทธิ์ ไม่ใช่การยื่นคำขอ</b> ใช้ประมาณการว่าผลงานแต่ละประเภทจะได้รับค่าตอบแทนหรือเงินสนับสนุนเท่าไหร่ จากแหล่งใด ไม่มีการบันทึกหรือส่งข้อมูล การยื่นขอจริงทำตามช่องทางปกติของภาควิชา คณะ และมหาวิทยาลัย',
  g1:'ผลงาน',g1h:'เลือกประเภทแล้วกด "เพิ่มเพื่อจำลอง" ทีละรายการ',
  lType:'ประเภทผลงาน',add:'เพิ่มเพื่อจำลอง',clr:'เริ่มใหม่',list:n=>`รายการผลงาน (${n})`,rm:(i,t)=>`ลบรายการที่ ${i} ${t}`,
@@ -247,7 +250,7 @@ th:{
  wNone:'รอปลดล็อกสิทธิ์',
  wJ:(n,a)=>`วารสาร ${n} รายการ: ค่าตอบแทน Top-up รวม <b>${a} บาท</b> และมีสิทธิ์เงินสนับสนุนการเผยแพร่อีก`,
  wCf:n=>`การประชุมวิชาการ ${n} รายการ: ไม่มีค่าตอบแทน Top-up แต่มีสิทธิ์เงินสนับสนุนการเผยแพร่`,
- wBud:'<b>วงเงินสนับสนุนเป็นงบภาควิชา ต้องแจ้งความประสงค์และขออนุมัติก่อนใช้ โดยพิจารณาผ่าน กบภ.</b> จึงเบิกตามใบเสร็จได้',
+ wBud:'<b>วงเงินสนับสนุนเป็นงบภาควิชา ต้องแจ้งความประสงค์และขออนุมัติผ่านภาควิชาก่อนใช้</b> จึงเบิกตามใบเสร็จได้',
  wCap:n=>`วงเงินสนับสนุนคิดต่อคนต่อปีงบประมาณ มี ${n} ผลงานก็ไม่เกิน 10,000 บาท`,
  wMul:'ผลงานที่ขอรับการสนับสนุนต้องมี Corresponding Author เพียงท่านเดียว',
  fU:'สิทธิ์มหาวิทยาลัย',
@@ -258,27 +261,31 @@ th:{
  lU:(i,s)=>`สิทธิ์มหาวิทยาลัย · รายการที่ ${i} ${s}`,uSub:(r,q1)=>`ค่าตอบแทนฯ ${r} หรือ APC ตามจริง${q1?'':' ≤ 60,000'}`,
  wUni:'<b>สิทธิ์ระดับมหาวิทยาลัย (ยื่นขอแยกต่างหาก):</b> เลือกขอรับค่าตอบแทน หรือ ค่า APC ได้เพียงอย่างเดียวต่อ 1 ผลงาน ทั้งนี้ แม้จะได้รับสิทธิ์จากมหาวิทยาลัยแล้ว ยังสามารถขอรับค่าตอบแทน Top-up จากคณะและภาควิชาเพิ่มเติมได้',
  wQ1:'ส่วนของคณะ: Scopus Q1 อายุผลงานไม่เกิน 1 ปี',
- crit:()=>sec(2,'s2','หลักเกณฑ์และเงื่อนไข','ค่าตอบแทน Top-up คิดต่อผลงาน เงินสนับสนุนการเผยแพร่คิดต่อคนต่อปีงบประมาณ',
+ crit:()=>sec(2,'s2','หลักเกณฑ์และเงื่อนไข','ค่าตอบแทน Top-up คิดต่อผลงาน วงเงินสนับสนุนคิดต่อคนต่อปีงบประมาณ โดยใช้งบประมาณเงินรายได้ของภาควิชา',
   `<div class="panel">${tbl(['รายการ','อัตรา (บาท)','แหล่งเงิน','วิธีเบิก'],[
-  ['ค่าตอบแทน Top-up วารสาร Q1','20,000/ผลงาน','คณะ 5,000 + ภาควิชา 15,000','ต่อผลงาน'],
-  ['ค่าตอบแทน Top-up วารสาร Q2','15,000/ผลงาน','ภาควิชา','ต่อผลงาน'],
-  ['ค่าตอบแทน Top-up วารสาร Q3–Q4','10,000/ผลงาน','ภาควิชา','ต่อผลงาน'],
-  ['วงเงินสนับสนุน (ประชุมวิชาการ/วารสาร)','10,000/คน/ปีงบ','ภาควิชา','<b>แจ้งความประสงค์และขออนุมัติก่อนใช้ พิจารณาผ่าน กบภ.</b> แล้วเบิกตามใบเสร็จ ใช้ร่วมกับค่าตอบแทน Top-up ได้'],
-  ],[1])}</div>
+  ['ค่าตอบแทน Top-up วารสาร Q1','20,000/ผลงาน','คณะ 5,000 + ภาควิชา 15,000','ภาควิชาจ่ายตามรายชื่อที่คณะรวบรวมส่งมา'],
+  ['ค่าตอบแทน Top-up วารสาร Q2','15,000/ผลงาน','ภาควิชา','ยื่นคำขอพร้อมหลักฐานการตีพิมพ์ที่ธุรการภาควิชา'],
+  ['ค่าตอบแทน Top-up วารสาร Q3–Q4','10,000/ผลงาน','ภาควิชา','ยื่นคำขอพร้อมหลักฐานการตีพิมพ์ที่ธุรการภาควิชา'],
+  ['วงเงินสนับสนุน (ประชุมวิชาการ/วารสาร)','10,000/คน/ปีงบ','ภาควิชา','<b>แจ้งความประสงค์และขออนุมัติผ่านภาควิชาก่อนใช้</b> แล้วเบิกตามใบเสร็จ ใช้ร่วมกับค่าตอบแทน Top-up ได้'],
+  ],[1])}<p class="asof">อัตราของมหาวิทยาลัยและคณะเป็นข้อมูล ณ วันที่ 20 พ.ย. 2569 ตามประกาศที่ใช้บังคับ</p></div>
   <div class="panel"><h3>เงื่อนไขการขอรับเงินสนับสนุนและค่าตอบแทน</h3><ul>
   <li><b>คุณสมบัติพื้นฐานของผู้ขอและผลงาน</b><ul style="margin:4px 0 0;padding-left:20px">
-   <li><b>ผู้ขอ:</b> ต้องเป็น First Author หรือ Corresponding Author (โดยผลงานต้องมี Corresponding Author เพียงคนเดียว) และไม่อยู่ระหว่างลาศึกษาต่อเต็มเวลา</li>
-   <li><b>สังกัด (Affiliation):</b> ระบุ <b>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University</b> เป็นอย่างน้อย</li>
-   <li><b>อายุผลงานไม่เกิน 1 ปี</b></li></ul></li>
-  <li><b>บทความวารสาร (Journal)</b> เงินของภาควิชาไม่ใช่ค่าตีพิมพ์ (APC) โดยสามารถขอรับเงินได้ครบทั้ง 3 ระดับตามลำดับ ดังนี้<ol style="margin:4px 0 0;padding-left:20px">
-   <li><b>มหาวิทยาลัย (ยื่นขอแยกต่างหาก):</b> 1 ผลงานเลือกขอรับค่าตอบแทน หรือ ค่า APC ได้เพียงอย่างเดียว (ตามประกาศ มช. ฉบับที่ 13/2566) ทั้งนี้ แม้จะได้รับสิทธิ์จากมหาวิทยาลัยแล้ว ยังสามารถขอรับค่าตอบแทน Top-up จากคณะและภาควิชาเพิ่มเติมได้</li>
-   <li><b>คณะ (Top-up 5,000 บาท):</b> สำหรับบทความ Scopus Q1 ที่ปรากฏในรายงานตัวชี้วัดรายเดือนของคณะ โดยจ่ายให้ 1 คนต่อบทความ (ตามประกาศ มช. ฉบับที่ 4/2569)</li>
-   <li><b>ภาควิชา:</b> ค่าตอบแทน Top-up ตามควอไทล์</li></ol></li>
-  <li><b>บทความการประชุมวิชาการระดับนานาชาติ (International Conference) และวงเงินสนับสนุน</b><ul style="margin:4px 0 0;padding-left:20px">
-   <li><b>ระดับมหาวิทยาลัยและคณะ:</b> ขอทุนนำเสนอผลงานได้ทั้งจากมหาวิทยาลัย (<a href="${UNIP}" target="_blank" rel="noopener">ดูประกาศ</a>) และคณะ (<a href="${FACP}" target="_blank" rel="noopener">ดูประกาศ</a>)</li>
-   <li><b>ระดับภาควิชา</b> (ต้องแจ้งความประสงค์และขออนุมัติผ่าน กบภ. ก่อนใช้สิทธิ์ จึงจะเบิกตามใบเสร็จได้):<ol style="margin:4px 0 0;padding-left:20px">
-    <li><b>วงเงินสนับสนุนปกติ (10,000 บาท):</b> สนับสนุนค่าใช้จ่ายตามจ่ายจริงภายใต้วงเงินที่ได้รับจัดสรร</li>
-    <li><b>วงเงินสนับสนุนพิเศษ (CORE A*):</b> ขอเบิกได้เต็มจำนวนตามใบเสร็จ โดยไม่หักจากโควตาวงเงินปกติ 10,000 บาท โดย CORE A* อ้างอิงอันดับจาก <a href="${CORE}" target="_blank" rel="noopener">ICORE Conference Portal</a> ทั้งนี้ สงวนสิทธิ์เฉพาะบทความใน Main Track เท่านั้น (ไม่รวม workshop, tutorial, demo, poster, doctoral consortium, findings หรือ companion track ที่จัดร่วมกัน แม้จะตีพิมพ์ใน proceedings เล่มเดียวกัน)</li></ol></li></ul></li></ul></div>
+   <li>ผู้ขอต้องเป็นอาจารย์ประจำของภาควิชาวิศวกรรมคอมพิวเตอร์ และไม่อยู่ระหว่างลาศึกษาต่อเต็มเวลา</li>
+   <li>ผู้ขอต้องเป็น First Author หรือ Corresponding Author และผลงานต้องมี Corresponding Author เพียงคนเดียว</li>
+   <li>Affiliation ของผู้ขอในผลงาน ต้องระบุ <b>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University</b> เป็นอย่างน้อย</li>
+   <li>ผลงาน 1 เรื่อง สามารถขอรับค่าตอบแทน Top-up ได้เพียง 1 ครั้ง และให้สิทธิ์เพียง 1 คนต่อ 1 ผลงานเท่านั้น</li>
+   <li>อายุผลงานไม่เกิน 1 ปี นับจากวันที่ได้รับการตีพิมพ์เผยแพร่จนถึงวันที่ยื่นคำขอ และต้องไม่ขัดต่อเงื่อนไขการรับทุนซ้ำซ้อนตามประกาศของมหาวิทยาลัย</li></ul></li>
+  <li><b>บทความวารสาร (Journal)</b> เงินของภาควิชาไม่ใช่ค่าตีพิมพ์ (APC) ผู้ขอสามารถขอรับได้ทั้ง 3 ระดับ โดยให้ยื่นขอจากมหาวิทยาลัย คณะ และภาควิชา ตามลำดับ<ol style="margin:4px 0 0;padding-left:20px">
+   <li><b>มหาวิทยาลัย (ต้องยื่นขอก่อน และยื่นขอแยกต่างหาก):</b> 1 ผลงานเลือกขอรับค่าตอบแทน หรือ ค่า APC ได้เพียงอย่างเดียว (ตามประกาศ มช. ฉบับที่ 13/2566) ทั้งนี้ แม้ได้รับสิทธิ์จากมหาวิทยาลัยแล้ว ยังสามารถขอรับค่าตอบแทน Top-up จากคณะและภาควิชาเพิ่มได้</li>
+   <li><b>คณะ (Top-up 5,000 บาท):</b> เฉพาะบทความที่ปรากฏในรายงานตัวชี้วัดรายเดือนของคณะ คณะจะเป็นผู้รวบรวมส่งมาให้ภาควิชา</li>
+   <li><b>ภาควิชา:</b> ค่าตอบแทน Top-up ตามควอไทล์ กรณี Q1 พิจารณาจ่ายตามรายชื่อที่คณะรวบรวมส่งมา สำหรับกรณี Q2–Q4 ให้ผู้ขอยื่นคำขอพร้อมหลักฐานการตีพิมพ์ที่ธุรการภาควิชาโดยตรง</li></ol></li>
+  <li><b>วงเงินสนับสนุน</b> ผู้ขอต้องแจ้งความประสงค์และขออนุมัติผ่านภาควิชาก่อนใช้สิทธิ์ จึงเบิกตามใบเสร็จได้<ol style="margin:4px 0 0;padding-left:20px">
+   <li><b>วงเงินสนับสนุนปกติ:</b> ไม่เกิน 10,000 บาท/คน/ปีงบประมาณ ตามจ่ายจริง ใช้ได้ทั้งบทความประชุมวิชาการและบทความวารสาร และใช้ร่วมกับค่าตอบแทน Top-up ได้ (วงเงินนี้คิดต่อคน ไม่ใช่ต่อผลงาน)</li>
+   <li><b>วงเงินสนับสนุนพิเศษ (CORE A*):</b> เบิกได้เต็มจำนวนตามใบเสร็จ ไม่หักจากวงเงินปกติ 10,000 บาท อันดับอ้างอิงตาม <a href="${CORE}" target="_blank" rel="noopener">ICORE Conference Portal</a> เฉพาะบทความใน Main Track เท่านั้น ไม่รวม workshop, tutorial, demo, poster, doctoral consortium, findings หรือ companion track ที่จัดร่วม แม้ตีพิมพ์ใน proceedings เล่มเดียวกัน</li></ol></li>
+  <li><b>บทความการประชุมวิชาการระดับนานาชาติ (International Conference):</b> ขอทุนนำเสนอผลงานได้ทั้งจากมหาวิทยาลัย (<a href="${UNIP}" target="_blank" rel="noopener">ดูประกาศ</a>) และคณะ (<a href="${FACP}" target="_blank" rel="noopener">ดูประกาศ</a>)</li>
+  <li><b>การบังคับใช้และการพิจารณากลั่นกรอง</b><ul style="margin:4px 0 0;padding-left:20px">
+   <li>หลักเกณฑ์นี้มีผลบังคับใช้กับผลงานที่ตีพิมพ์ตั้งแต่วันที่ 1 มกราคม 2569 เป็นต้นไป จนกว่าจะมีมติเปลี่ยนแปลง</li>
+   <li>คณะกรรมการบริหารภาควิชามีหน้าที่พิจารณากลั่นกรอง ตรวจสอบคุณสมบัติของผลงาน ตีความหลักเกณฑ์กรณีมีข้อสงสัย รวมถึงพิจารณาปรับปรุงอัตราหรือวงเงินสนับสนุนให้เหมาะสมกับสถานะงบประมาณของภาควิชา</li></ul></li></ul></div>
   <div class="panel" id="apc"><h3>ค่า APC: ระเบียบของมหาวิทยาลัย</h3>
   <p class="hint"><a href="${ORA}" target="_blank" rel="noopener">ประกาศ มช. ฉบับที่ 13/2566</a> ผลงาน 1 เรื่องเลือกได้อย่างเดียว ระหว่างค่าตอบแทนฯ หรือค่าตีพิมพ์ (APC)</p>
   ${tbl(['ควอไทล์ (SJR)','ค่าตอบแทนฯ','หรือ APC'],[['Q1','15,000','ตามจริง'],['Q2','14,000','ตามจริง ≤ 60,000'],['Q3','13,000','ตามจริง ≤ 60,000'],['Q4','12,000','ตามจริง ≤ 60,000']],[1,2])}
@@ -301,6 +308,7 @@ en:{
 
  legal:'<p><b>Results are estimates.</b> Final amounts depend on Faculty and Department review under the announcements and resolutions in force.</p><p>This page sends nothing you enter anywhere. Your language choice is remembered in this browser only.</p>',
  h1:'Entitlement simulator',h1h:'Try the publication types you have or expect to have, and see what you would likely receive.',
+ asof:'University and Faculty rates as of 20 Nov 2026',
  notice:'<b>Entitlement simulator — not an application form.</b> It estimates the reward or support each publication type would receive, and from which source. Nothing is saved or sent. To apply, use the usual Department, Faculty and University channels.',
  g1:'Publications',g1h:'Choose a type and click "Add to simulation", one at a time.',
  lType:'Publication type',add:'Add to simulation',clr:'Start over',list:n=>`Publications (${n})`,rm:(i,t)=>`Remove #${i} ${t}`,
@@ -314,7 +322,7 @@ en:{
  wNone:'Ready to Unlock',
  wJ:(n,a)=>`${n} journal article(s): top-up reward of <b>${a} THB</b>, plus publication support.`,
  wCf:n=>`${n} conference paper(s): no top-up reward, but eligible for publication support.`,
- wBud:'<b>The support budget is department funding and must be requested and approved before use, subject to department executive committee review</b>; it is then reimbursed by receipt.',
+ wBud:'<b>The support budget is department funding and must be requested and approved by the Department before use</b>; it is then reimbursed by receipt.',
  wCap:n=>`The support budget is per person per fiscal year: ${n} publications share one 10,000 THB limit.`,
  wMul:'The publication must have a single corresponding author.',
  fU:'University entitlement',
@@ -325,27 +333,31 @@ en:{
  lU:(i,s)=>`University · #${i} ${s}`,uSub:(r,q1)=>`Reward ${r} or actual APC${q1?'':' ≤ 60,000'}`,
  wUni:'<b>University entitlement (claimed separately):</b> choose either the reward or the APC, one per article. Even after receiving the university entitlement, you can still claim the Faculty and Department top-up reward.',
  wQ1:'Faculty portion: Scopus Q1, published within the past year.',
- crit:()=>sec(2,'s2','Criteria and conditions','Top-up rewards are per article; publication support is per person per fiscal year.',
+ crit:()=>sec(2,'s2','Criteria and conditions','Top-up rewards are per article; the support budget is per person per fiscal year. Both are paid from the Department\'s revenue budget.',
   `<div class="panel">${tbl(['Description','Rate (THB)','Funding','Claim'],[
-  ['Top-up reward: journal, Q1','20,000/article','Faculty 5,000 + Department 15,000','Per article'],
-  ['Top-up reward: journal, Q2','15,000/article','Department','Per article'],
-  ['Top-up reward: journal, Q3–Q4','10,000/article','Department','Per article'],
-  ['Support budget (conference/journal)','10,000/person/fiscal year','Department','<b>Request and get approval before use, subject to department executive committee review</b>, then claim by receipt; combinable with the top-up reward'],
-  ],[1])}</div>
+  ['Top-up reward: journal, Q1','20,000/article','Faculty 5,000 + Department 15,000','Paid by the Department from the list the Faculty compiles'],
+  ['Top-up reward: journal, Q2','15,000/article','Department','Submit a request with proof of publication to the Department office'],
+  ['Top-up reward: journal, Q3–Q4','10,000/article','Department','Submit a request with proof of publication to the Department office'],
+  ['Support budget (conference/journal)','10,000/person/fiscal year','Department','<b>Request and get Department approval before use</b>, then claim by receipt; combinable with the top-up reward'],
+  ],[1])}<p class="asof">University and Faculty rates are as of 20 Nov 2026, per the announcements in force.</p></div>
   <div class="panel"><h3>Conditions for support and rewards</h3><ul>
   <li><b>Basic requirements for the applicant and publication</b><ul style="margin:4px 0 0;padding-left:20px">
-   <li><b>Applicant:</b> must be the first or corresponding author (the publication must have a single corresponding author) and not on full-time study leave</li>
-   <li><b>Affiliation:</b> must include at least <b>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University</b></li>
-   <li><b>Publication age no more than 1 year</b></li></ul></li>
-  <li><b>Journal articles</b>: department money is not an APC. An article can receive funding at all three levels, in this order:<ol style="margin:4px 0 0;padding-left:20px">
-   <li><b>University (claimed separately):</b> each article may claim either the reward or the APC, not both (CMU Announcement No. 13/2566). Even after receiving the university entitlement, you can still claim the Faculty and Department top-up reward.</li>
-   <li><b>Faculty (top-up 5,000 THB):</b> for Scopus Q1 articles listed in the Faculty's monthly indicator report; paid to one author per article (CMU Announcement No. 4/2569)</li>
-   <li><b>Department:</b> top-up reward by quartile</li></ol></li>
-  <li><b>International conference papers and support budget</b><ul style="margin:4px 0 0;padding-left:20px">
-   <li><b>University and Faculty:</b> presentation grants are available from both the university (<a href="${UNIP}" target="_blank" rel="noopener">see announcement</a>) and the Faculty (<a href="${FACP}" target="_blank" rel="noopener">see announcement</a>)</li>
-   <li><b>Department</b> (request and get approval from the department executive committee before use; then claim by receipt):<ol style="margin:4px 0 0;padding-left:20px">
-    <li><b>Regular support budget (10,000 THB):</b> actual expenses within the allocated budget</li>
-    <li><b>Special support (CORE A*):</b> full amount by receipt, not deducted from the regular 10,000 THB budget; CORE A* rank per the <a href="${CORE}" target="_blank" rel="noopener">ICORE Conference Portal</a>. Main track papers only (co-located workshops, tutorials, demos, posters, doctoral consortia, findings or companion tracks do not count, even when published in the same proceedings).</li></ol></li></ul></li></ul></div>
+   <li>The applicant must be a full-time faculty member of the Department of Computer Engineering and not on full-time study leave</li>
+   <li>The applicant must be the first author or corresponding author, and the publication must have a single corresponding author</li>
+   <li>The applicant's affiliation in the publication must include at least <b>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University</b></li>
+   <li>Each publication can receive the top-up reward only once, and for only one person</li>
+   <li>The publication must be no more than 1 year old, counted from its publication date to the application date, and must not conflict with the university's rules on duplicate funding</li></ul></li>
+  <li><b>Journal articles</b>: department money is not an APC. An applicant can claim at all three levels, applying to the University, the Faculty and the Department in that order:<ol style="margin:4px 0 0;padding-left:20px">
+   <li><b>University (apply first, separately):</b> each article may claim either the reward or the APC, not both (CMU Announcement No. 13/2566). Even after receiving the university entitlement, you can still claim the Faculty and Department top-up reward.</li>
+   <li><b>Faculty (top-up 5,000 THB):</b> only for articles listed in the Faculty's monthly indicator report; the Faculty compiles them and sends the list to the Department</li>
+   <li><b>Department:</b> top-up reward by quartile. Q1 is paid from the list the Faculty sends; for Q2–Q4, submit a request with proof of publication directly to the Department office</li></ol></li>
+  <li><b>Support budget</b>: request and get Department approval before use, then claim by receipt.<ol style="margin:4px 0 0;padding-left:20px">
+   <li><b>Regular support budget:</b> up to 10,000 THB per person per fiscal year, actual cost; usable for conference and journal papers, and combinable with the top-up reward (the limit is per person, not per publication)</li>
+   <li><b>Special support (CORE A*):</b> full amount by receipt, not deducted from the regular 10,000 THB budget; rank per the <a href="${CORE}" target="_blank" rel="noopener">ICORE Conference Portal</a>. Main track papers only (co-located workshops, tutorials, demos, posters, doctoral consortia, findings or companion tracks do not count, even when published in the same proceedings).</li></ol></li>
+  <li><b>International conference papers:</b> presentation grants are available from both the university (<a href="${UNIP}" target="_blank" rel="noopener">see announcement</a>) and the Faculty (<a href="${FACP}" target="_blank" rel="noopener">see announcement</a>)</li>
+  <li><b>Effective date and review</b><ul style="margin:4px 0 0;padding-left:20px">
+   <li>These rules apply to publications published on or after 1 January 2026, until changed by resolution</li>
+   <li>The Department Executive Committee screens applications, verifies publication eligibility, interprets the rules when in doubt, and may adjust rates or support limits to suit the Department's budget</li></ul></li></ul></div>
   <div class="panel" id="apc"><h3>APCs: university rules</h3>
   <p class="hint">Under <a href="${ORA}" target="_blank" rel="noopener">CMU Announcement No. 13/2566</a>, each article may claim either the university reward or the APC, not both.</p>
   ${tbl(['Quartile (SJR)','University reward','or APC'],[['Q1','15,000','Actual cost'],['Q2','14,000','Actual, ≤ 60,000'],['Q3','13,000','Actual, ≤ 60,000'],['Q4','12,000','Actual, ≤ 60,000']],[1,2])}
@@ -405,7 +417,7 @@ function render(){
       rows=`<div class="r gr"><div class="k">${L.pGr}</div><div class="choice">${lk(UNI,L.pGrU)}<span class="or">${L.pAnd}</span>${lk(FAC,L.pGrF)}</div></div>`;}
     return `<li><div><b>${L.T[p.t]}</b><div class="pm">${rows}</div></div></li>`;
   }).join('');
-  $('perp').hidden=n===0;
+  $('perp').hidden=n===0;$('asof').hidden=n===0;
   $('perp').innerHTML=`<div class="k">${L.fS}<small>${L.pp}</small></div><div class="amt">≤ ${f(CAP2)}</div>`;
 
   const W=[];
