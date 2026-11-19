@@ -232,7 +232,7 @@ const D={
 th:{
  title:'PubPay',
  sub:'Entitlement simulator · CPECMU · Unofficial',
- langL:'ภาษา',n1:'จำลองสิทธิ์',n2:'หลักเกณฑ์และเงื่อนไข',n3:'อ้างอิง',
+ langL:'ภาษา',n1:'จำลองสิทธิ์',n2:'เงื่อนไข',n3:'อ้างอิง',
 
  legal:'<p><b>ผลลัพธ์เป็นการประมาณการ</b> สิทธิ์จริงขึ้นกับการพิจารณาของคณะและภาควิชา ตามประกาศและมติที่ใช้บังคับ</p><p>หน้านี้ไม่ส่งข้อมูลที่ท่านกรอกไปที่ใด ภาษาที่เลือกจะจำไว้ในเบราว์เซอร์นี้เท่านั้น</p>',
  h1:'จำลองสิทธิ์',h1h:'ลองเลือกประเภทผลงานที่มีหรือกำลังจะมี เพื่อดูสิทธิ์ที่คาดว่าจะได้รับ',
@@ -261,7 +261,7 @@ th:{
  lU:(i,s)=>`สิทธิ์มหาวิทยาลัย · รายการที่ ${i} ${s}`,uSub:(r,q1)=>`ค่าตอบแทนฯ ${r} หรือ APC ตามจริง${q1?'':' ≤ 60,000'}`,
  wUni:'<b>สิทธิ์ระดับมหาวิทยาลัย (ยื่นขอแยกต่างหาก):</b> เลือกขอรับค่าตอบแทน หรือ ค่า APC ได้เพียงอย่างเดียวต่อ 1 ผลงาน ทั้งนี้ แม้จะได้รับสิทธิ์จากมหาวิทยาลัยแล้ว ยังสามารถขอรับค่าตอบแทน Top-up จากคณะและภาควิชาเพิ่มเติมได้',
  wQ1:'ส่วนของคณะ: Scopus Q1 อายุผลงานไม่เกิน 1 ปี',
- crit:()=>sec(2,'s2','หลักเกณฑ์และเงื่อนไข','ค่าตอบแทน Top-up คิดต่อผลงาน วงเงินสนับสนุนคิดต่อคนต่อปีงบประมาณ โดยใช้งบประมาณเงินรายได้ของภาควิชา',
+ crit:()=>sec(2,'s2','เงื่อนไข','',
   `<div class="panel"><h3>เงื่อนไขการขอรับเงินสนับสนุนและค่าตอบแทน</h3><ul>
   <li><b>คุณสมบัติพื้นฐานของผู้ขอและผลงาน</b><ul style="margin:4px 0 0;padding-left:20px">
    <li>ผู้ขอต้องเป็นอาจารย์ประจำของภาควิชาวิศวกรรมคอมพิวเตอร์ และไม่อยู่ระหว่างลาศึกษาต่อเต็มเวลา</li>
@@ -279,13 +279,7 @@ th:{
   <li><b>บทความการประชุมวิชาการระดับนานาชาติ (International Conference):</b> ขอทุนนำเสนอผลงานได้ทั้งจากมหาวิทยาลัย (<a href="${UNIP}" target="_blank" rel="noopener">ดูประกาศ</a>) และคณะ (<a href="${FACP}" target="_blank" rel="noopener">ดูประกาศ</a>)</li>
   <li><b>การบังคับใช้และการพิจารณากลั่นกรอง</b><ul style="margin:4px 0 0;padding-left:20px">
    <li>ให้หลักเกณฑ์นี้มีผลบังคับใช้ตั้งแต่วันที่ 20 พ.ย. 2569 จนกว่าจะมีมติเปลี่ยนแปลง</li>
-   <li>ให้คณะกรรมการบริหารภาควิชาเป็นผู้พิจารณาอนุมัติคำขอ วินิจฉัยกรณีมีข้อสงสัย และปรับปรุงอัตราหรือวงเงินสนับสนุนให้เหมาะสมกับงบประมาณของภาควิชา</li></ul></li></ul></div>
-  <div class="panel" id="apc"><h3>ค่า APC: ระเบียบของมหาวิทยาลัย</h3>
-  <p class="hint"><a href="${ORA}" target="_blank" rel="noopener">ประกาศ มช. ฉบับที่ 13/2566</a> ผลงาน 1 เรื่องเลือกได้อย่างเดียว ระหว่างค่าตอบแทนฯ หรือค่าตีพิมพ์ (APC)</p>
-  ${tbl(['ควอร์ไทล์ (SJR)','ค่าตอบแทนฯ','หรือ APC'],[['Q1','15,000','ตามจริง'],['Q2','14,000','ตามจริง ≤ 60,000'],['Q3','13,000','ตามจริง ≤ 60,000'],['Q4','12,000','ตามจริง ≤ 60,000']],[1,2])}
-  <div class="insight soft"><ul><li>จ่าย 1 ผู้ประพันธ์ต่อผลงาน ใช้ควอร์ไทล์ที่ดีที่สุด ไม่รวมผลงานวิทยานิพนธ์หรือที่ได้ทุนผ่าน สบว.</li>
-  <li>APC ไม่รวม Fast Track/ค่าธรรมเนียมพิเศษ ใช้ใบเสร็จฉบับจริง (สำเนา/สลิปแนบ บก.111)</li>
-  <li>ยื่นภายใน 1 ปีจากเดือนที่ตอบรับ ผ่านต้นสังกัด ที่ <a href="${MIS}" target="_blank" rel="noopener">research.mis.cmu.ac.th</a></li></ul></div></div>`)
+   <li>ให้คณะกรรมการบริหารภาควิชาเป็นผู้พิจารณาอนุมัติคำขอ วินิจฉัยกรณีมีข้อสงสัย และปรับปรุงอัตราหรือวงเงินสนับสนุนให้เหมาะสมกับงบประมาณของภาควิชา</li></ul></li></ul></div>`)
  +sec(3,'s3','เอกสารอ้างอิง','',`<div class="panel"><ol class="refs">
   <li>ประกาศมหาวิทยาลัยเชียงใหม่ ฉบับที่ 4/2569 (Top-up คณะวิศวกรรมศาสตร์)</li>
   <li>บันทึกข้อความ อว 8393(14).1(5)/520 (12 พ.ย. 2569)</li>
@@ -298,7 +292,7 @@ th:{
 en:{
  title:'PubPay',
  sub:'Entitlement simulator · CPECMU · Unofficial',
- langL:'Language',n1:'Simulator',n2:'Criteria & conditions',n3:'Sources',
+ langL:'Language',n1:'Simulator',n2:'Conditions',n3:'Sources',
 
  legal:'<p><b>Results are estimates.</b> Final amounts depend on Faculty and Department review under the announcements and resolutions in force.</p><p>This page sends nothing you enter anywhere. Your language choice is remembered in this browser only.</p>',
  h1:'Entitlement simulator',h1h:'Try the publication types you have or expect to have, and see what you would likely receive.',
@@ -327,7 +321,7 @@ en:{
  lU:(i,s)=>`University · #${i} ${s}`,uSub:(r,q1)=>`Reward ${r} or actual APC${q1?'':' ≤ 60,000'}`,
  wUni:'<b>University entitlement (claimed separately):</b> choose either the reward or the APC, one per article. Even after receiving the university entitlement, you can still claim the Faculty and Department top-up reward.',
  wQ1:'Faculty portion: Scopus Q1, published within the past year.',
- crit:()=>sec(2,'s2','Criteria and conditions','Top-up rewards are per article; the support budget is per person per fiscal year. Both are paid from the Department\'s revenue budget.',
+ crit:()=>sec(2,'s2','Conditions','',
   `<div class="panel"><h3>Conditions for support and rewards</h3><ul>
   <li><b>Basic requirements for the applicant and publication</b><ul style="margin:4px 0 0;padding-left:20px">
    <li>The applicant must be a full-time faculty member of the Department of Computer Engineering and not on full-time study leave</li>
@@ -345,13 +339,7 @@ en:{
   <li><b>International conference papers:</b> presentation grants are available from both the university (<a href="${UNIP}" target="_blank" rel="noopener">see announcement</a>) and the Faculty (<a href="${FACP}" target="_blank" rel="noopener">see announcement</a>)</li>
   <li><b>Effective date and review</b><ul style="margin:4px 0 0;padding-left:20px">
    <li>These rules take effect on 20 November 2026 and remain in force until changed by resolution</li>
-   <li>The Department Executive Committee approves requests, decides cases of doubt, and adjusts rates or support limits to suit the Department's budget</li></ul></li></ul></div>
-  <div class="panel" id="apc"><h3>APCs: university rules</h3>
-  <p class="hint">Under <a href="${ORA}" target="_blank" rel="noopener">CMU Announcement No. 13/2566</a>, each article may claim either the university reward or the APC, not both.</p>
-  ${tbl(['Quartile (SJR)','University reward','or APC'],[['Q1','15,000','Actual cost'],['Q2','14,000','Actual, ≤ 60,000'],['Q3','13,000','Actual, ≤ 60,000'],['Q4','12,000','Actual, ≤ 60,000']],[1,2])}
-  <div class="insight soft"><ul><li>One author per article; best quartile applies; excludes thesis work and work funded through the Research Administration Office</li>
-  <li>APCs exclude fast-track and extra fees; original receipts required (copies or slips need form บก.111)</li>
-  <li>Apply within one year of the acceptance month, through your unit, at <a href="${MIS}" target="_blank" rel="noopener">research.mis.cmu.ac.th</a></li></ul></div></div>`)
+   <li>The Department Executive Committee approves requests, decides cases of doubt, and adjusts rates or support limits to suit the Department's budget</li></ul></li></ul></div>`)
  +sec(3,'s3','Sources','',`<div class="panel"><ol class="refs">
   <li>CMU Announcement No. 4/2569 (Faculty of Engineering top-up)</li>
   <li>Memorandum อว 8393(14).1(5)/520 (12 Nov 2026)</li>
