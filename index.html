@@ -76,6 +76,7 @@ section.sec+section.sec,#crit>section.sec{border-top:1px solid var(--border);pad
 #crit .panel+.two,#crit .panel+.panel{margin-top:14px}
 
 /* calculator */
+.notice{display:flex;gap:12px;align-items:flex-start;margin:0 0 14px;padding:12px 16px;border-radius:12px;background:var(--k5);border:1px solid var(--border);color:var(--text)}.notice p{margin:0;font-size:14px;line-height:1.6}.notice .ni{flex:none;display:grid;place-items:center;width:22px;height:22px;margin-top:1px;border-radius:50%;background:var(--gold-ink);color:var(--gold);font:700 13px/1 Georgia,serif;font-style:italic}
 .calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:14px;align-items:start}
 .adder{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;padding:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px}
 .adder label,.field>label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
@@ -182,6 +183,7 @@ footer b{color:var(--text)}
 <main class="wrap">
 <section class="sec" id="s1">
 <div class="sec-head"><h2><span class="sec-no">1</span><span data-i="h1"></span></h2><p class="hint" data-i="h1h"></p></div>
+<div class="notice" role="note"><span class="ni" aria-hidden="true">i</span><p data-i="notice"></p></div>
 <div class="calc">
 <div class="panel">
 <h3 data-i="g1"></h3><p class="hint" data-i="g1h"></p>
@@ -227,14 +229,15 @@ const sec=(n,id,h,hint,body)=>`<section class="sec" id="${id}"><div class="sec-h
 const D={
 th:{
  title:'PubPay · ค่าตอบแทน Top-up และเงินสนับสนุน CPE',
- sub:'CPECMU · Unofficial',
- langL:'ภาษา',n1:'คำนวณสิทธิ์',n2:'หลักเกณฑ์และเงื่อนไข',n3:'อ้างอิง',
+ sub:'เครื่องมือจำลองสิทธิ์ · CPECMU · Unofficial',
+ langL:'ภาษา',n1:'จำลองสิทธิ์',n2:'หลักเกณฑ์และเงื่อนไข',n3:'อ้างอิง',
 
  legal:'<p><b>ผลลัพธ์เป็นการประมาณการ</b> สิทธิ์จริงขึ้นกับการพิจารณาของคณะและภาควิชา ตามประกาศและมติที่ใช้บังคับ</p><p>หน้านี้ไม่ส่งข้อมูลที่ท่านกรอกไปที่ใด ภาษาที่เลือกจะจำไว้ในเบราว์เซอร์นี้เท่านั้น</p>',
- h1:'คำนวณสิทธิ์',h1h:'ระบุผลงาน ระบบจะแสดงวงเงินที่มีสิทธิ์เบิกและแหล่งเงิน',
- g1:'ผลงาน',g1h:'เลือกประเภทแล้วเพิ่มผลงานทีละรายการ',
- lType:'ประเภทผลงาน',add:'เพิ่มผลงาน',clr:'ล้างรายการ',list:n=>`รายการผลงาน (${n})`,rm:(i,t)=>`ลบรายการที่ ${i} ${t}`,
- empty:'ยังไม่มีผลงาน เลือกประเภทแล้วกด "เพิ่มผลงาน"',
+ h1:'จำลองสิทธิ์',h1h:'ลองเลือกประเภทผลงานที่มีหรือกำลังจะมี เพื่อดูสิทธิ์ที่คาดว่าจะได้รับ',
+ notice:'<b>เครื่องมือจำลองสิทธิ์ ไม่ใช่การยื่นคำขอ</b> ใช้ประมาณการว่าผลงานแต่ละประเภทจะได้รับค่าตอบแทนหรือเงินสนับสนุนเท่าไหร่ จากแหล่งใด ไม่มีการบันทึกหรือส่งข้อมูล การยื่นขอจริงทำตามช่องทางปกติของภาควิชา คณะ และมหาวิทยาลัย',
+ g1:'ผลงาน',g1h:'เลือกประเภทแล้วกด "เพิ่มเพื่อจำลอง" ทีละรายการ',
+ lType:'ประเภทผลงาน',add:'เพิ่มเพื่อจำลอง',clr:'เริ่มใหม่',list:n=>`รายการผลงาน (${n})`,rm:(i,t)=>`ลบรายการที่ ${i} ${t}`,
+ empty:'ยังไม่มีผลงาน เลือกประเภทแล้วกด "เพิ่มเพื่อจำลอง"',
  T:{q1:'บทความวารสาร Q1',q2:'บทความวารสาร Q2',q3:'บทความวารสาร Q3',q4:'บทความวารสาร Q4',cf:'บทความการประชุมวิชาการ'},
  subJ:'ค่าตอบแทน Top-up',subCf:'ใช้สิทธิ์เงินสนับสนุนการเผยแพร่',paCf:'เงินสนับสนุน',full:'เต็มจำนวน',
  fR:'ค่าตอบแทน Top-up',fS:'วงเงินสนับสนุน',
@@ -293,14 +296,15 @@ th:{
 },
 en:{
  title:'PubPay · CPE Top-up Rewards and Publication Support',
- sub:'CPECMU · Unofficial',
- langL:'Language',n1:'Calculator',n2:'Criteria & conditions',n3:'Sources',
+ sub:'Reward simulator · CPECMU · Unofficial',
+ langL:'Language',n1:'Simulator',n2:'Criteria & conditions',n3:'Sources',
 
  legal:'<p><b>Results are estimates.</b> Final amounts depend on Faculty and Department review under the announcements and resolutions in force.</p><p>This page sends nothing you enter anywhere. Your language choice is remembered in this browser only.</p>',
- h1:'Eligibility calculator',h1h:'Enter your publications to see your eligible amount and its funding source.',
- g1:'Publications',g1h:'Choose a type and add publications one at a time.',
- lType:'Publication type',add:'Add',clr:'Clear',list:n=>`Publications (${n})`,rm:(i,t)=>`Remove #${i} ${t}`,
- empty:'No publications yet. Select a type and click "Add".',
+ h1:'Reward simulator',h1h:'Try the publication types you have or expect to have, and see what you would likely receive.',
+ notice:'<b>Reward simulator — not an application form.</b> It estimates the reward or support each publication type would receive, and from which source. Nothing is saved or sent. To apply, use the usual Department, Faculty and University channels.',
+ g1:'Publications',g1h:'Choose a type and click "Add to simulation", one at a time.',
+ lType:'Publication type',add:'Add to simulation',clr:'Start over',list:n=>`Publications (${n})`,rm:(i,t)=>`Remove #${i} ${t}`,
+ empty:'No publications yet. Select a type and click "Add to simulation".',
  T:{q1:'Journal article, Q1',q2:'Journal article, Q2',q3:'Journal article, Q3',q4:'Journal article, Q4',cf:'Conference paper'},
  subJ:'Top-up reward',subCf:'Eligible for publication support',paCf:'Support',full:'Full amount',
  fR:'Top-up reward',fS:'Support budget',
