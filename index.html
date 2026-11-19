@@ -263,9 +263,9 @@ th:{
  wQ1:'ส่วนของคณะ: Scopus Q1 อายุผลงานไม่เกิน 1 ปี',
  crit:()=>sec(2,'s2','หลักเกณฑ์และเงื่อนไข','ค่าตอบแทน Top-up คิดต่อผลงาน วงเงินสนับสนุนคิดต่อคนต่อปีงบประมาณ โดยใช้งบประมาณเงินรายได้ของภาควิชา',
   `<div class="panel">${tbl(['รายการ','อัตรา (บาท)','แหล่งเงิน','วิธีเบิก'],[
-  ['ค่าตอบแทน Top-up วารสาร Q1','20,000/ผลงาน','คณะ 5,000 + ภาควิชา 15,000','ภาควิชาจ่ายตามรายชื่อที่คณะรวบรวมส่งมา'],
-  ['ค่าตอบแทน Top-up วารสาร Q2','15,000/ผลงาน','ภาควิชา','ยื่นคำขอพร้อมหลักฐานการตีพิมพ์ที่ธุรการภาควิชา'],
-  ['ค่าตอบแทน Top-up วารสาร Q3–Q4','10,000/ผลงาน','ภาควิชา','ยื่นคำขอพร้อมหลักฐานการตีพิมพ์ที่ธุรการภาควิชา'],
+  ['ค่าตอบแทน Top-up วารสาร Q1','20,000/ผลงาน','คณะ 5,000 + ภาควิชา 15,000','ต่อผลงาน'],
+  ['ค่าตอบแทน Top-up วารสาร Q2','15,000/ผลงาน','ภาควิชา','ต่อผลงาน'],
+  ['ค่าตอบแทน Top-up วารสาร Q3–Q4','10,000/ผลงาน','ภาควิชา','ต่อผลงาน'],
   ['วงเงินสนับสนุน (ประชุมวิชาการ/วารสาร)','10,000/คน/ปีงบ','ภาควิชา','<b>แจ้งความประสงค์และขออนุมัติผ่านภาควิชาก่อนใช้</b> แล้วเบิกตามใบเสร็จ ใช้ร่วมกับค่าตอบแทน Top-up ได้'],
   ],[1])}<p class="asof">อัตราของมหาวิทยาลัยและคณะเป็นข้อมูล ณ วันที่ 20 พ.ย. 2569 ตามประกาศที่ใช้บังคับ</p></div>
   <div class="panel"><h3>เงื่อนไขการขอรับเงินสนับสนุนและค่าตอบแทน</h3><ul>
@@ -273,7 +273,7 @@ th:{
    <li>ผู้ขอต้องเป็นอาจารย์ประจำของภาควิชาวิศวกรรมคอมพิวเตอร์ และไม่อยู่ระหว่างลาศึกษาต่อเต็มเวลา</li>
    <li>ผู้ขอต้องเป็น First Author หรือ Corresponding Author และผลงานต้องมี Corresponding Author เพียงคนเดียว</li>
    <li>Affiliation ของผู้ขอในผลงาน ต้องระบุ <b>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University</b> เป็นอย่างน้อย</li>
-   <li>ผลงาน 1 เรื่อง ใช้สิทธิ์ขอรับค่าตอบแทน Top-up ได้เพียง 1 ครั้งเท่านั้น</li>
+   <li>ผลงาน 1 เรื่อง สามารถขอรับค่าตอบแทน Top-up จากภาควิชาได้เพียง 1 ครั้งเท่านั้น</li>
    <li>อายุผลงานไม่เกิน 1 ปี นับจากวันที่ได้รับการตีพิมพ์เผยแพร่จนถึงวันที่ยื่นคำขอ และต้องไม่ขัดต่อเงื่อนไขการรับทุนซ้ำซ้อนตามประกาศของมหาวิทยาลัย</li></ul></li>
   <li><b>บทความวารสาร (Journal)</b> เงินของภาควิชาไม่ใช่ค่าตีพิมพ์ (APC) ผู้ขอสามารถขอรับได้ทั้ง 3 ระดับ โดยให้ยื่นขอจากมหาวิทยาลัย คณะ และภาควิชา ตามลำดับ<ol style="margin:4px 0 0;padding-left:20px">
    <li><b>มหาวิทยาลัย (ต้องยื่นขอก่อน และยื่นขอแยกต่างหาก):</b> 1 ผลงานเลือกขอรับค่าตอบแทน หรือ ค่า APC ได้เพียงอย่างเดียว (ตามประกาศ มช. ฉบับที่ 13/2566) ทั้งนี้ แม้ได้รับสิทธิ์จากมหาวิทยาลัยแล้ว ยังสามารถขอรับค่าตอบแทน Top-up จากคณะและภาควิชาเพิ่มได้</li>
@@ -335,9 +335,9 @@ en:{
  wQ1:'Faculty portion: Scopus Q1, published within the past year.',
  crit:()=>sec(2,'s2','Criteria and conditions','Top-up rewards are per article; the support budget is per person per fiscal year. Both are paid from the Department\'s revenue budget.',
   `<div class="panel">${tbl(['Description','Rate (THB)','Funding','Claim'],[
-  ['Top-up reward: journal, Q1','20,000/article','Faculty 5,000 + Department 15,000','Paid by the Department from the list the Faculty compiles'],
-  ['Top-up reward: journal, Q2','15,000/article','Department','Submit a request with proof of publication to the Department office'],
-  ['Top-up reward: journal, Q3–Q4','10,000/article','Department','Submit a request with proof of publication to the Department office'],
+  ['Top-up reward: journal, Q1','20,000/article','Faculty 5,000 + Department 15,000','Per article'],
+  ['Top-up reward: journal, Q2','15,000/article','Department','Per article'],
+  ['Top-up reward: journal, Q3–Q4','10,000/article','Department','Per article'],
   ['Support budget (conference/journal)','10,000/person/fiscal year','Department','<b>Request and get Department approval before use</b>, then claim by receipt; combinable with the top-up reward'],
   ],[1])}<p class="asof">University and Faculty rates are as of 20 Nov 2026, per the announcements in force.</p></div>
   <div class="panel"><h3>Conditions for support and rewards</h3><ul>
@@ -345,7 +345,7 @@ en:{
    <li>The applicant must be a full-time faculty member of the Department of Computer Engineering and not on full-time study leave</li>
    <li>The applicant must be the first author or corresponding author, and the publication must have a single corresponding author</li>
    <li>The applicant's affiliation in the publication must include at least <b>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University</b></li>
-   <li>Each publication can be used to claim the top-up reward only once</li>
+   <li>Each publication can claim the Department top-up reward only once</li>
    <li>The publication must be no more than 1 year old, counted from its publication date to the application date, and must not conflict with the university's rules on duplicate funding</li></ul></li>
   <li><b>Journal articles</b>: department money is not an APC. An applicant can claim at all three levels, applying to the University, the Faculty and the Department in that order:<ol style="margin:4px 0 0;padding-left:20px">
    <li><b>University (apply first, separately):</b> each article may claim either the reward or the APC, not both (CMU Announcement No. 13/2566). Even after receiving the university entitlement, you can still claim the Faculty and Department top-up reward.</li>
