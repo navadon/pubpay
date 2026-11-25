@@ -13,20 +13,20 @@
 :root{--bg:#f6f5fb;--surface:#ffffff;--surface-2:#faf9fd;--border:#e8e6f1;--text:#2a2c3d;--text-2:#565a70;--muted:#767b92;
 --header-bg:#ebe4f8;--header-bg-2:#dfeaf8;--header-text:#2e2a4a;--header-muted:#615d7e;--nav-border:rgba(46,42,74,.18);--nav-hover:rgba(46,42,74,.07);
 --purple-soft:#f2edfa;--gold:#f2d58a;--gold-ink:#1d1600;--brand:#7354b3;--accent:#8566c2;--link:#6b4fa8;--focus:#e5b94a;--on-accent:#ffffff;
---k1:linear-gradient(135deg,#e2e8fc,#ccd7f6);--k2:linear-gradient(135deg,#eee3fa,#dccbf3);--k5:linear-gradient(135deg,#fcf1cf,#f5e2a8);--k3:linear-gradient(135deg,#dcf1ea,#c2e5da);
+--k1:linear-gradient(135deg,#e2e8fc,#ccd7f6);--k2:linear-gradient(135deg,#eee3fa,#dccbf3);--k5:linear-gradient(135deg,#fcf1cf,#f5e2a8);--k3:linear-gradient(135deg,#dcf1ea,#c2e5da);--k6:linear-gradient(135deg,#f8e2e5,#efcbd1);
 --kpi-text:#2a2c3d;--kpi-ico:rgba(255,255,255,.6);--kpi-glow:rgba(255,255,255,.3);
 --banner-bg:#fdf4dc;--banner-text:#5a4300;
 --shadow:0 1px 2px rgba(42,44,61,.04),0 4px 14px rgba(42,44,61,.05)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14172a;--surface:#1c2036;--surface-2:#22273f;--border:#323955;--text:#ebedf6;--text-2:#c3c7da;--muted:#9ba2bd;
 --header-bg:#26213f;--header-bg-2:#1e2a46;--header-text:#eeebf9;--header-muted:#b7b3d1;--nav-border:rgba(255,255,255,.22);--nav-hover:rgba(255,255,255,.1);
 --purple-soft:#2b2645;--gold:#e6cc85;--brand:#e6cc85;--accent:#c2adef;--link:#cdbaf5;--on-accent:#1b1d2b;
---k1:linear-gradient(135deg,#343e66,#434f80);--k2:linear-gradient(135deg,#3d3465,#52447d);--k5:linear-gradient(135deg,#4e4523,#64582d);--k3:linear-gradient(135deg,#23463d,#2d5a4e);
+--k1:linear-gradient(135deg,#343e66,#434f80);--k2:linear-gradient(135deg,#3d3465,#52447d);--k5:linear-gradient(135deg,#4e4523,#64582d);--k3:linear-gradient(135deg,#23463d,#2d5a4e);--k6:linear-gradient(135deg,#4d2a31,#61363f);
 --kpi-text:#f1effa;--kpi-ico:rgba(255,255,255,.12);--kpi-glow:rgba(255,255,255,.06);--banner-bg:#3a3214;--banner-text:#f3dc95;
 --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.22);color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#14172a;--surface:#1c2036;--surface-2:#22273f;--border:#323955;--text:#ebedf6;--text-2:#c3c7da;--muted:#9ba2bd;
 --header-bg:#26213f;--header-bg-2:#1e2a46;--header-text:#eeebf9;--header-muted:#b7b3d1;--nav-border:rgba(255,255,255,.22);--nav-hover:rgba(255,255,255,.1);
 --purple-soft:#2b2645;--gold:#e6cc85;--brand:#e6cc85;--accent:#c2adef;--link:#cdbaf5;--on-accent:#1b1d2b;
---k1:linear-gradient(135deg,#343e66,#434f80);--k2:linear-gradient(135deg,#3d3465,#52447d);--k5:linear-gradient(135deg,#4e4523,#64582d);--k3:linear-gradient(135deg,#23463d,#2d5a4e);
+--k1:linear-gradient(135deg,#343e66,#434f80);--k2:linear-gradient(135deg,#3d3465,#52447d);--k5:linear-gradient(135deg,#4e4523,#64582d);--k3:linear-gradient(135deg,#23463d,#2d5a4e);--k6:linear-gradient(135deg,#4d2a31,#61363f);
 --kpi-text:#f1effa;--kpi-ico:rgba(255,255,255,.12);--kpi-glow:rgba(255,255,255,.06);--banner-bg:#3a3214;--banner-text:#f3dc95;
 --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.22);color-scheme:dark}
 *{box-sizing:border-box}
@@ -95,7 +95,7 @@ section.sec+section.sec,#crit>section.sec{border-top:1px solid var(--border);pad
 .plist li{display:grid;grid-template-columns:24px minmax(0,1fr) 36px;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid var(--border)}
 .pm{display:grid;gap:6px;margin-top:8px}
 .pm .r,.perp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:7px 10px;border-radius:10px;color:var(--kpi-text)}
-.pm .top{background:var(--k3)}.pm .gr{background:var(--k5);grid-template-columns:minmax(0,1fr)}.pm .gr .choice{justify-content:flex-start}a.opt{color:var(--link);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;min-height:32px}.perp .k small{display:block}a.opt:hover{background:var(--purple-soft)}.pm .uni{background:var(--k2)}.perp{background:var(--k1);margin-top:10px}
+.pm .top{background:var(--k3)}.pm .fac{background:var(--k6)}.pm .gr{background:var(--k5);grid-template-columns:minmax(0,1fr)}.pm .gr .choice{justify-content:flex-start}a.opt{color:var(--link);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;min-height:32px}.perp .k small{display:block}a.opt:hover{background:var(--purple-soft)}.pm .uni{background:var(--k2)}.perp{background:var(--k1);margin-top:10px}
 .pm .none{background:var(--surface-2);color:var(--muted);grid-template-columns:minmax(0,1fr)}
 .pm .k,.perp .k{font-size:13px;font-weight:600}.pm .k small,.perp .k small{font-weight:400;color:inherit;opacity:.8}
 .pm .amt,.perp .amt{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -251,7 +251,7 @@ th:{
  subJ:'ค่าตอบแทน Top-up',subCf:'ใช้สิทธิ์เงินสนับสนุนการเผยแพร่',paCf:'เงินสนับสนุน',full:'เต็มจำนวน',
  fR:'ค่าตอบแทน Top-up',fS:'วงเงินสนับสนุน',
  vt1:'สิทธิ์ตามรายการผลงาน',vt2:'ต่อคน ต่อปีงบประมาณ',baht:'บาท',fac:'เงินคณะ',dept:'เงินภาควิชา',
- l1:(i,s)=>`ค่าตอบแทน Top-up · รายการที่ ${i} ${s}`,srcF:(a,b)=>`คณะ ${a} + ภาควิชา ${b}`,srcD:'ภาควิชา',l1none:['ค่าตอบแทน Top-up ผลงานวารสาร','ไม่มีผลงานวารสาร'],
+ l1:(i,s)=>`ค่าตอบแทน Top-up · รายการที่ ${i} ${s}`,srcF:(a,b)=>`คณะ ${a} + ภาควิชา ${b}`,srcD:'ภาควิชา',srcFac:'คณะ',l1none:['ค่าตอบแทน Top-up ผลงานวารสาร','ไม่มีผลงานวารสาร'],
  l2:'วงเงินสนับสนุน',s2none:'ต้องมีผลงานอย่างน้อย 1 รายการ',s2max:'ภาควิชา 10,000 ต่อปีงบ · ขออนุมัติก่อนใช้',
  wNone:'รอปลดล็อกสิทธิ์',
  wJ:(n,a)=>`วารสาร ${n} รายการ: ค่าตอบแทน Top-up รวม <b>${a} บาท</b> และมีสิทธิ์เงินสนับสนุนการเผยแพร่อีก`,
@@ -291,7 +291,7 @@ th:{
   <li><b>วงเงินสนับสนุนปกติตามตำแหน่งวิชาการ</b><br>ปรับวงเงินสนับสนุนต่อคนต่อปีงบประมาณตามตำแหน่ง เพื่อผลักดันการเผยแพร่ผลงาน และสอดคล้องกับทิศทางการขอตำแหน่งทางวิชาการ
   ${tbl(['ตำแหน่ง','วงเงินต่อคนต่อปีงบประมาณ'],[['อาจารย์','≤ 20,000 บาท'],['ผศ. / รศ. / ศ.','≤ 15,000–10,000 บาท']],[1])}</li>
   <li><b>วงเงินสนับสนุนเพื่อสร้างความร่วมมือ</b><br>สนับสนุนค่าใช้จ่ายในการเดินทางไปหารือความร่วมมือกับภาคเอกชนหรือมหาวิทยาลัยต่างประเทศ เพื่อพัฒนาข้อเสนอโครงการขอรับทุนวิจัยจากแหล่งทุนภายนอกที่ดำเนินการร่วมกับภาคเอกชนหรือมหาวิทยาลัยดังกล่าว ≤ 25,000 บาท/คน/ปีงบประมาณ ภายใต้กรอบวงเงินรวมของภาควิชา 100,000 บาท/ปีงบประมาณ เบิกจ่ายตามใบเสร็จ โดยผู้ที่ได้รับการสนับสนุนต้องส่งข้อเสนอโครงการวิจัยผ่านภาควิชา คณะ หรือมหาวิทยาลัย และแนบหลักฐานการยื่นประกอบการเบิกจ่าย</li>
-  <li><b>วงเงินสนับสนุนการพัฒนาทักษะ (Upskill)</b><br>คงวงเงินสนับสนุนไว้ที่ ≤ 10,000 บาท/คน/ปีงบประมาณ ภายใต้กรอบวงเงินรวมของภาควิชา ≤ 100,000 บาท/ปีงบประมาณ</li></ol></div>`)
+  <li><b>วงเงินสนับสนุนการพัฒนาทักษะ (Upskill)</b><br>คงวงเงินสนับสนุนไว้ที่ ≤ 10,000 บาท/คน/ปีงบประมาณ ภายใต้กรอบวงเงินรวมของภาควิชา 100,000 บาท/ปีงบประมาณ</li></ol></div>`)
  +sec(4,'s3','เอกสารอ้างอิง','',`<div class="panel"><ol class="refs">
   <li>ประกาศมหาวิทยาลัยเชียงใหม่ ฉบับที่ 4/2569 (Top-up คณะวิศวกรรมศาสตร์)</li>
   <li>บันทึกข้อความ อว 8393(14).1(5)/520 (12 พ.ย. 2569)</li>
@@ -319,7 +319,7 @@ en:{
  subJ:'Top-up reward',subCf:'Eligible for publication support',paCf:'Support',full:'Full amount',
  fR:'Top-up reward',fS:'Support budget',
  vt1:'Entitlements by publication',vt2:'Per person, per fiscal year',baht:'THB',fac:'Faculty',dept:'Department',
- l1:(i,s)=>`Top-up reward · #${i} ${s}`,srcF:(a,b)=>`Faculty ${a} + Department ${b}`,srcD:'Department',l1none:['Journal top-up reward','No journal articles'],
+ l1:(i,s)=>`Top-up reward · #${i} ${s}`,srcF:(a,b)=>`Faculty ${a} + Department ${b}`,srcD:'Department',srcFac:'Faculty',l1none:['Journal top-up reward','No journal articles'],
  l2:'Support budget',s2none:'Requires at least one publication',s2max:'Department 10,000 per fiscal year · approval before use',
  wNone:'Ready to Unlock',
  wJ:(n,a)=>`${n} journal article(s): top-up reward of <b>${a} THB</b>, plus publication support.`,
@@ -359,7 +359,7 @@ en:{
   <li><b>Regular support budget by academic rank</b><br>Set the per-person, per-fiscal-year support budget by rank, to encourage publication and support progress toward academic promotion.
   ${tbl(['Rank','Budget per person per fiscal year'],[['Lecturer','≤ 20,000 THB'],['Asst. Prof. / Assoc. Prof. / Prof.','≤ 15,000–10,000 THB']],[1])}</li>
   <li><b>Collaboration support budget</b><br>Covers travel to explore collaboration with industry partners or universities abroad, in order to develop a proposal for external research funding carried out jointly with that partner or university. ≤ 25,000 THB per person per fiscal year, within a total Department budget of 100,000 THB per fiscal year, reimbursed against receipts. Recipients must submit the research proposal through the Department, Faculty or University and attach evidence of submission to the claim.</li>
-  <li><b>Upskill support</b><br>Keep upskill support at ≤ 10,000 THB per person per fiscal year, within a total Department budget of ≤ 100,000 THB per fiscal year.</li></ol></div>`)
+  <li><b>Upskill support</b><br>Keep upskill support at ≤ 10,000 THB per person per fiscal year, within a total Department budget of 100,000 THB per fiscal year.</li></ol></div>`)
  +sec(4,'s3','Sources','',`<div class="panel"><ol class="refs">
   <li>CMU Announcement No. 4/2569 (Faculty of Engineering top-up)</li>
   <li>Memorandum อว 8393(14).1(5)/520 (12 Nov 2026)</li>
@@ -409,7 +409,8 @@ function render(){
     let rows;
     if(isJ(p.t)){
       const[a,fc]=AMT[p.t],u=UR[p.t][0];
-      rows=`<div class="r top"><div class="k">${L.fR}<small>${fc?L.srcF(f(fc),f(a-fc)):L.srcD}</small></div><div class="amt">${f(a)}</div></div>`+
+      rows=`<div class="r top"><div class="k">${L.fR}<small>${L.srcD}</small></div><div class="amt">${f(a-fc)}</div></div>`+
+      (fc?`<div class="r fac"><div class="k">${L.fR}<small>${L.srcFac}</small></div><div class="amt">${f(fc)}</div></div>`:'')+
       `<div class="r uni"><div class="k">${L.pUni}<small>${L.pPick}</small></div><div class="choice"><span class="opt">${L.pRw} <b>${f(u)}</b></span><span class="or">${L.pOr}</span><span class="opt">${L.pApc} <b>${L.pAct}${p.t==='q1'?'':' ≤ 60,000'}</b></span></div></div>`;
     }else{const lk=(u,x)=>`<a class="opt" href="${u}" target="_blank" rel="noopener">${x} ↗</a>`;
       rows=`<div class="r gr"><div class="k">${L.pGr}</div><div class="choice">${lk(UNI,L.pGrU)}<span class="or">${L.pAnd}</span>${lk(FAC,L.pGrF)}</div></div>`;}
