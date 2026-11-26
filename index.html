@@ -41,13 +41,13 @@ button,input,select{font:inherit}
 /* header */
 header.top{background:linear-gradient(100deg,var(--header-bg),var(--header-bg-2));color:var(--header-text);border-bottom:3px solid var(--gold)}
 header.top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-block:14px}
-.brand{flex:1 1 420px;min-width:0}
+.brand{flex:1 1 260px;min-width:0}
 .brand h1{margin:0;font-size:22px;line-height:1.2;letter-spacing:.2px;font-weight:750}
 .brand h1 .cmu{color:var(--brand)}
 .brand h1 .expand{font-size:15px;font-weight:500;color:var(--header-muted);margin-left:6px;white-space:nowrap}
 .brand h1 .expand b{color:var(--header-text);font-weight:700}
 .brand .sub{margin:3px 0 0;color:var(--header-muted);font-size:13px}
-.sec-nav{display:flex;gap:6px;flex-wrap:wrap;flex-basis:100%}
+.sec-nav{display:flex;gap:6px;flex-wrap:wrap}
 .sec-nav a{color:var(--header-text);text-decoration:none;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--nav-border)}
 .sec-nav a:hover{background:var(--nav-hover)}
 .controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
@@ -182,9 +182,9 @@ footer b{color:var(--text)}
 <h1><span class="cmu">PubPay</span><span class="expand"><b>Pub</b>lication <b>Pay</b>out</span></h1>
 <p class="sub" data-i="sub"></p>
 </div>
+<nav class="sec-nav" aria-label="Sections"><a href="#s1" data-i="n1"></a><a href="#s2" data-i="n2"></a><a href="#plan" data-i="nP"></a><a href="#s3" data-i="n3"></a></nav>
 <div class="controls"><span class="ctl-label" data-i="langL"></span>
 <div class="seg" role="group" aria-label="Language"><button type="button" data-l="th" aria-pressed="true">ไทย</button><button type="button" data-l="en" aria-pressed="false">English</button></div></div>
-<nav class="sec-nav" aria-label="Sections"><a href="#s1" data-i="n1"></a><a href="#s2" data-i="n2"></a><a href="#plan" data-i="nP"></a><a href="#s3" data-i="n3"></a></nav>
 </div></header>
 
 <main class="wrap">
