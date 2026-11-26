@@ -13,20 +13,20 @@
 :root{--bg:#f6f5fb;--surface:#ffffff;--surface-2:#faf9fd;--border:#e8e6f1;--text:#2a2c3d;--text-2:#565a70;--muted:#767b92;
 --header-bg:#ebe4f8;--header-bg-2:#dfeaf8;--header-text:#2e2a4a;--header-muted:#615d7e;--nav-border:rgba(46,42,74,.18);--nav-hover:rgba(46,42,74,.07);
 --purple-soft:#f2edfa;--gold:#f2d58a;--gold-ink:#1d1600;--brand:#7354b3;--accent:#8566c2;--link:#6b4fa8;--focus:#e5b94a;--on-accent:#ffffff;
---k1:linear-gradient(135deg,#e2e8fc,#ccd7f6);--k2:linear-gradient(135deg,#eee3fa,#dccbf3);--k5:linear-gradient(135deg,#fcf1cf,#f5e2a8);--k3:linear-gradient(135deg,#dcf1ea,#c2e5da);--k6:linear-gradient(135deg,#f8e2e5,#efcbd1);
+--k1:linear-gradient(135deg,#e2e8fc,#ccd7f6);--k2:linear-gradient(135deg,#eee3fa,#dccbf3);--k5:linear-gradient(135deg,#fcf1cf,#f5e2a8);--k3:linear-gradient(135deg,#dcf1ea,#c2e5da);--k6:linear-gradient(135deg,#f8e2e5,#efcbd1);--k7:linear-gradient(120deg,#d6ecff,#e6dbff 50%,#ffd6ea);
 --kpi-text:#2a2c3d;--kpi-ico:rgba(255,255,255,.6);--kpi-glow:rgba(255,255,255,.3);
 --banner-bg:#fdf4dc;--banner-text:#5a4300;
 --shadow:0 1px 2px rgba(42,44,61,.04),0 4px 14px rgba(42,44,61,.05)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14172a;--surface:#1c2036;--surface-2:#22273f;--border:#323955;--text:#ebedf6;--text-2:#c3c7da;--muted:#9ba2bd;
 --header-bg:#26213f;--header-bg-2:#1e2a46;--header-text:#eeebf9;--header-muted:#b7b3d1;--nav-border:rgba(255,255,255,.22);--nav-hover:rgba(255,255,255,.1);
 --purple-soft:#2b2645;--gold:#e6cc85;--brand:#e6cc85;--accent:#c2adef;--link:#cdbaf5;--on-accent:#1b1d2b;
---k1:linear-gradient(135deg,#343e66,#434f80);--k2:linear-gradient(135deg,#3d3465,#52447d);--k5:linear-gradient(135deg,#4e4523,#64582d);--k3:linear-gradient(135deg,#23463d,#2d5a4e);--k6:linear-gradient(135deg,#4d2a31,#61363f);
+--k1:linear-gradient(135deg,#343e66,#434f80);--k2:linear-gradient(135deg,#3d3465,#52447d);--k5:linear-gradient(135deg,#4e4523,#64582d);--k3:linear-gradient(135deg,#23463d,#2d5a4e);--k6:linear-gradient(135deg,#4d2a31,#61363f);--k7:linear-gradient(120deg,#25466a,#43357a 50%,#6a3660);
 --kpi-text:#f1effa;--kpi-ico:rgba(255,255,255,.12);--kpi-glow:rgba(255,255,255,.06);--banner-bg:#3a3214;--banner-text:#f3dc95;
 --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.22);color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#14172a;--surface:#1c2036;--surface-2:#22273f;--border:#323955;--text:#ebedf6;--text-2:#c3c7da;--muted:#9ba2bd;
 --header-bg:#26213f;--header-bg-2:#1e2a46;--header-text:#eeebf9;--header-muted:#b7b3d1;--nav-border:rgba(255,255,255,.22);--nav-hover:rgba(255,255,255,.1);
 --purple-soft:#2b2645;--gold:#e6cc85;--brand:#e6cc85;--accent:#c2adef;--link:#cdbaf5;--on-accent:#1b1d2b;
---k1:linear-gradient(135deg,#343e66,#434f80);--k2:linear-gradient(135deg,#3d3465,#52447d);--k5:linear-gradient(135deg,#4e4523,#64582d);--k3:linear-gradient(135deg,#23463d,#2d5a4e);--k6:linear-gradient(135deg,#4d2a31,#61363f);
+--k1:linear-gradient(135deg,#343e66,#434f80);--k2:linear-gradient(135deg,#3d3465,#52447d);--k5:linear-gradient(135deg,#4e4523,#64582d);--k3:linear-gradient(135deg,#23463d,#2d5a4e);--k6:linear-gradient(135deg,#4d2a31,#61363f);--k7:linear-gradient(120deg,#25466a,#43357a 50%,#6a3660);
 --kpi-text:#f1effa;--kpi-ico:rgba(255,255,255,.12);--kpi-glow:rgba(255,255,255,.06);--banner-bg:#3a3214;--banner-text:#f3dc95;
 --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.22);color-scheme:dark}
 *{box-sizing:border-box}
@@ -95,7 +95,7 @@ section.sec+section.sec,#crit>section.sec{border-top:1px solid var(--border);pad
 .plist li{display:grid;grid-template-columns:24px minmax(0,1fr) 36px;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid var(--border)}
 .pm{display:grid;gap:6px;margin-top:8px}
 .pm .r,.perp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:7px 10px;border-radius:10px;color:var(--kpi-text)}
-.pm .top{background:var(--k3)}.pm .fac{background:var(--k6)}.pm .gr{background:var(--k5);grid-template-columns:minmax(0,1fr)}.pm .gr .choice{justify-content:flex-start}a.opt{color:var(--link);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;min-height:32px}.perp .k small{display:block}a.opt:hover{background:var(--purple-soft)}.pm .uni{background:var(--k2)}.perp{background:var(--k1);margin-top:10px}
+.pm .top{background:var(--k3)}.pm .fac{background:var(--k6)}.pm .sp{background:var(--k7)}.pm .nt{font-weight:400;font-size:.85em;opacity:.8}.pm .gr{background:var(--k5);grid-template-columns:minmax(0,1fr)}.pm .gr .choice{justify-content:flex-start}a.opt{color:var(--link);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;min-height:32px}.perp .k small{display:block}a.opt:hover{background:var(--purple-soft)}.pm .uni{background:var(--k2)}.perp{background:var(--k1);margin-top:10px}
 .pm .none{background:var(--surface-2);color:var(--muted);grid-template-columns:minmax(0,1fr)}
 .pm .k,.perp .k{font-size:13px;font-weight:600}.pm .k small,.perp .k small{font-weight:400;color:inherit;opacity:.8}
 .pm .amt,.perp .amt{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -229,7 +229,7 @@ const FAC='https://research.eng.cmu.ac.th/news/scholarship/%E0%B8%97%E0%B8%B8%E0
 const UNIP='https://ora.oou.cmu.ac.th/wp-content/uploads/2026/06/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%A5%E0%B8%B1%E0%B8%A2%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88-%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%AA-1.pdf';
 const FACP='https://research.eng.cmu.ac.th/wp-content/uploads/2026/04/429-68-%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%97%E0%B8%B8%E0%B8%99%E0%B9%80%E0%B8%AA%E0%B8%99%E0%B8%AD%E0%B8%9C%E0%B8%A5%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%99%E0%B8%B2%E0%B8%99%E0%B8%B2%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4.pdf#page=2.00';
 const UR={q1:[15000,15000],q2:[14000,14000],q3:[13000,13000],q4:[12000,12000]};
-const AMT={q1:[20000,5000],q2:[15000,0],q3:[10000,0],q4:[10000,0],cf:[0,0]};
+const AMT={q1:[20000,5000],q2:[15000,0],q3:[10000,0],q4:[10000,0],cf:[0,0],ca:[0,0]};
 const tbl=(cols,rows,L)=>`<div class="tw"><table class="stack"><thead><tr>${cols.map((c,i)=>`<th${L.includes(i)?' class="n"':''}>${c}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>typeof r==='string'?`<tr class="gr"><td colspan="${cols.length}">${r}</td></tr>`:`<tr>${r.map((v,i)=>`<td${L.includes(i)?' class="n"':''} data-l="${cols[i]}">${v}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 const card=(u,h,d,host)=>`<a class="lk" href="${u}" target="_blank" rel="noopener"><span class="lk-t">${h}</span><span class="lk-d">${d}</span><span class="lk-h">${host} ↗</span></a>`;
 const sec=(n,id,h,hint,body)=>`<section class="sec" id="${id}"><div class="sec-head"><h2><span class="sec-no">${n}</span>${h}</h2>${hint?`<p class="hint">${hint}</p>`:''}</div>${body}</section>`;
@@ -247,9 +247,9 @@ th:{
  g1:'ผลงาน',g1h:'เลือกประเภทแล้วกด "เพิ่มเพื่อจำลอง" ทีละรายการ',
  lType:'ประเภทผลงาน',add:'เพิ่มเพื่อจำลอง',clr:'เริ่มใหม่',list:n=>`รายการผลงาน (${n})`,rm:(i,t)=>`ลบรายการที่ ${i} ${t}`,
  empty:'ยังไม่มีผลงาน เลือกประเภทแล้วกด "เพิ่มเพื่อจำลอง"',
- T:{q1:'บทความวารสาร Q1',q2:'บทความวารสาร Q2',q3:'บทความวารสาร Q3',q4:'บทความวารสาร Q4',cf:'บทความการประชุมวิชาการ'},
+ T:{q1:'บทความวารสาร Q1',q2:'บทความวารสาร Q2',q3:'บทความวารสาร Q3',q4:'บทความวารสาร Q4',cf:'บทความการประชุมวิชาการ',ca:'บทความการประชุมวิชาการ CORE A*'},
  subJ:'ค่าตอบแทน Top-up',subCf:'ใช้สิทธิ์เงินสนับสนุนการเผยแพร่',paCf:'เงินสนับสนุน',full:'เต็มจำนวน',
- fR:'ค่าตอบแทน Top-up',fS:'วงเงินสนับสนุน',
+ fR:'ค่าตอบแทน Top-up',fRn:'(ตามประกาศ มช.)',fS:'วงเงินสนับสนุน',
  vt1:'สิทธิ์ตามรายการผลงาน',vt2:'ต่อคน ต่อปีงบประมาณ',baht:'บาท',fac:'เงินคณะ',dept:'เงินภาควิชา',
  l1:(i,s)=>`ค่าตอบแทน Top-up · รายการที่ ${i} ${s}`,srcF:(a,b)=>`คณะ ${a} + ภาควิชา ${b}`,srcD:'ภาควิชา',srcFac:'คณะ',l1none:['ค่าตอบแทน Top-up ผลงานวารสาร','ไม่มีผลงานวารสาร'],
  l2:'วงเงินสนับสนุน',s2none:'ต้องมีผลงานอย่างน้อย 1 รายการ',s2max:'ภาควิชา 10,000 ต่อปีงบ · ขออนุมัติก่อนใช้',
@@ -262,7 +262,7 @@ th:{
  fU:'สิทธิ์มหาวิทยาลัย',
  uMeta:x=>`<b>ค่าตอบแทน</b>รวม <b>หรือ</b> เลือกเบิก <b>APC</b> ตามจริงแทนเป็นรายเรื่อง${x?' (Q2–Q4 ≤ 60,000)':''} · ยื่นมหาวิทยาลัย · <a href="#apc">เงื่อนไข</a>`,
 
- pUni:'มหาวิทยาลัย',pPick:'เลือก 1 อย่าง',pRw:'ค่าตอบแทน',pOr:'หรือ',pApc:'APC',pAct:'ตามจริง',pNone:'ไม่มีค่าตอบแทน Top-up · ใช้วงเงินสนับสนุนต่อคนด้านล่าง',pGr:'ทุนนำเสนอผลงานวิชาการระดับนานาชาติ',pGrS:'สำหรับคณาจารย์ · ขอได้ทั้งมหาวิทยาลัยและคณะ',pGrFd:'คณะ: ตามจ่ายจริงไม่เกิน 15,000 บาท · 1 เรื่อง/คน/ปีงบประมาณ',pGrU:'มหาวิทยาลัย',pGrUP:'ประกาศ PDF',pGrF:'คณะ ≤ 15,000',pAnd:'และ',pp:'ต่อคน ต่อปีงบ · ภาควิชา · ขออนุมัติก่อนใช้',
+ pUni:'มหาวิทยาลัย',pPick:'เลือก 1 อย่าง',pRw:'ค่าตอบแทน',pOr:'หรือ',pApc:'APC',pAct:'ตามจริง',pNone:'ไม่มีค่าตอบแทน Top-up · ใช้วงเงินสนับสนุนต่อคนด้านล่าง',pGr:'ทุนนำเสนอผลงานวิชาการระดับนานาชาติ',pGrS:'สำหรับคณาจารย์ · ขอได้ทั้งมหาวิทยาลัยและคณะ',pGrFd:'คณะ: ตามจ่ายจริงไม่เกิน 15,000 บาท · 1 เรื่อง/คน/ปีงบประมาณ',pGrU:'มหาวิทยาลัย',pGrUP:'ประกาศ PDF',pGrF:'คณะ ≤ 15,000',pAnd:'และ',pSp:'วงเงินสนับสนุนพิเศษ',pSpS:'ต่อผลงาน · ภาควิชา · ขออนุมัติก่อนใช้',pp:'ต่อคน ต่อปีงบ · ภาควิชา · ขออนุมัติก่อนใช้',
  wGr:'บทความการประชุมวิชาการระดับนานาชาติ: คณาจารย์ขอ<b>ทุนนำเสนอผลงานวิชาการระดับนานาชาติ</b>ได้ทั้งจาก<a href="'+UNI+'" target="_blank" rel="noopener">มหาวิทยาลัย</a> (<a href="'+UNIP+'" target="_blank" rel="noopener">ประกาศ</a>) และ<a href="'+FAC+'" target="_blank" rel="noopener">คณะ</a> (<a href="'+FACP+'" target="_blank" rel="noopener">ประกาศ</a>: คณะสนับสนุนตามจ่ายจริงไม่เกิน 15,000 บาท 1 เรื่อง/คน/ปีงบประมาณ)',
  lU:(i,s)=>`สิทธิ์มหาวิทยาลัย · รายการที่ ${i} ${s}`,uSub:(r,q1)=>`ค่าตอบแทนฯ ${r} หรือ APC ตามจริง${q1?'':' ≤ 60,000'}`,
  wUni:'<b>สิทธิ์ระดับมหาวิทยาลัย (ยื่นขอแยกต่างหาก):</b> เลือกขอรับค่าตอบแทน หรือ ค่า APC ได้เพียงอย่างเดียวต่อ 1 ผลงาน ทั้งนี้ แม้จะได้รับสิทธิ์จากมหาวิทยาลัยแล้ว ยังสามารถขอรับค่าตอบแทน Top-up จากคณะและภาควิชาเพิ่มเติมได้',
@@ -275,7 +275,7 @@ th:{
    <li>Affiliation ของผู้ขอในผลงาน ต้องระบุ <b>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University</b> เป็นอย่างน้อย</li>
    <li>ผลงาน 1 เรื่อง สามารถขอรับค่าตอบแทน Top-up จากภาควิชาได้เพียง 1 ครั้งเท่านั้น</li>
    <li>อายุผลงานไม่เกิน 1 ปี นับจากวันที่ได้รับการตีพิมพ์เผยแพร่จนถึงวันที่ยื่นคำขอ และต้องไม่ขัดต่อเงื่อนไขการรับทุนซ้ำซ้อนตามประกาศของมหาวิทยาลัย</li></ul></li>
-  <li><b>บทความวารสาร (Journal)</b> เงินของภาควิชาไม่ใช่ค่าตีพิมพ์ (APC) ผู้ขอสามารถขอรับได้ทั้ง 3 ระดับ โดยให้ยื่นขอจากมหาวิทยาลัย คณะ และภาควิชา ตามลำดับ<ul style="margin:4px 0 0;padding-left:20px">
+  <li><b>บทความวารสาร (Journal)</b> เงินของภาควิชาไม่ใช่ค่าตีพิมพ์ (APC) ผู้ขอสามารถขอรับได้ทั้ง 3 ระดับ โดยให้ยื่นขอจากมหาวิทยาลัย คณะ และภาควิชา ตามลำดับ ทั้งนี้ ควอร์ไทล์ (Q1–Q4) ให้อ้างอิงจากฐานข้อมูล Scopus หรือ SCImago Journal &amp; Country Rank (SJR) ตามประกาศในเอกสารอ้างอิงข้อ 1<ul style="margin:4px 0 0;padding-left:20px">
    <li><b>มหาวิทยาลัย:</b> ต้องยื่นขอก่อน และยื่นขอแยกต่างหาก สามารถขอ Top-up จากคณะและภาควิชาเพิ่มได้ แม้ได้รับสิทธิ์จากมหาวิทยาลัยแล้ว</li>
    <li><b>คณะ:</b> เฉพาะบทความที่ปรากฏในรายงานตัวชี้วัดรายเดือนของคณะ คณะจะเป็นผู้รวบรวมส่งมาให้ภาควิชา</li>
    <li><b>ภาควิชา:</b> กรณี Q1 พิจารณาจ่ายตามรายชื่อที่คณะรวบรวมส่งมา สำหรับกรณี Q2–Q4 ให้ผู้ขอยื่นคำขอพร้อมหลักฐานการตีพิมพ์ที่ธุรการภาควิชาโดยตรง</li></ul></li>
@@ -315,9 +315,9 @@ en:{
  g1:'Publications',g1h:'Choose a type and click "Add to simulation", one at a time.',
  lType:'Publication type',add:'Add to simulation',clr:'Start over',list:n=>`Publications (${n})`,rm:(i,t)=>`Remove #${i} ${t}`,
  empty:'No publications yet. Select a type and click "Add to simulation".',
- T:{q1:'Journal article, Q1',q2:'Journal article, Q2',q3:'Journal article, Q3',q4:'Journal article, Q4',cf:'Conference paper'},
+ T:{q1:'Journal article, Q1',q2:'Journal article, Q2',q3:'Journal article, Q3',q4:'Journal article, Q4',cf:'Conference paper',ca:'Conference paper, CORE A*'},
  subJ:'Top-up reward',subCf:'Eligible for publication support',paCf:'Support',full:'Full amount',
- fR:'Top-up reward',fS:'Support budget',
+ fR:'Top-up reward',fRn:'(per CMU announcement)',fS:'Support budget',
  vt1:'Entitlements by publication',vt2:'Per person, per fiscal year',baht:'THB',fac:'Faculty',dept:'Department',
  l1:(i,s)=>`Top-up reward · #${i} ${s}`,srcF:(a,b)=>`Faculty ${a} + Department ${b}`,srcD:'Department',srcFac:'Faculty',l1none:['Journal top-up reward','No journal articles'],
  l2:'Support budget',s2none:'Requires at least one publication',s2max:'Department 10,000 per fiscal year · approval before use',
@@ -330,7 +330,7 @@ en:{
  fU:'University entitlement',
  uMeta:x=>`Total <b>reward</b>, <b>or</b> claim the actual <b>APC</b> instead, per article${x?' (Q2–Q4 ≤ 60,000)':''} · apply to the university · <a href="#apc">rules</a>`,
 
- pUni:'University',pPick:'pick one',pRw:'Reward',pOr:'or',pApc:'APC',pAct:'actual',pNone:'No top-up reward · uses the per-person support budget below',pGr:'International conference presentation grant',pGrS:'For faculty members · from both the university and the Faculty',pGrFd:'Faculty: actual cost up to 15,000 THB · 1 paper per person per fiscal year',pGrU:'University',pGrUP:'announcement PDF',pGrF:'Faculty ≤ 15,000',pAnd:'and',pp:'Per person, per fiscal year · Department · approval before use',
+ pUni:'University',pPick:'pick one',pRw:'Reward',pOr:'or',pApc:'APC',pAct:'actual',pNone:'No top-up reward · uses the per-person support budget below',pGr:'International conference presentation grant',pGrS:'For faculty members · from both the university and the Faculty',pGrFd:'Faculty: actual cost up to 15,000 THB · 1 paper per person per fiscal year',pGrU:'University',pGrUP:'announcement PDF',pGrF:'Faculty ≤ 15,000',pAnd:'and',pSp:'Special support',pSpS:'Per publication · Department · approval before use',pp:'Per person, per fiscal year · Department · approval before use',
  wGr:'International conference papers: faculty members can apply for an <b>international conference presentation grant</b> from both the <a href="'+UNI+'" target="_blank" rel="noopener">university</a> (<a href="'+UNIP+'" target="_blank" rel="noopener">announcement</a>) and the <a href="'+FAC+'" target="_blank" rel="noopener">Faculty</a> (<a href="'+FACP+'" target="_blank" rel="noopener">announcement</a>: the Faculty pays actual cost up to 15,000 THB, 1 paper per person per fiscal year).',
  lU:(i,s)=>`University · #${i} ${s}`,uSub:(r,q1)=>`Reward ${r} or actual APC${q1?'':' ≤ 60,000'}`,
  wUni:'<b>University entitlement (claimed separately):</b> choose either the reward or the APC, one per article. Even after receiving the university entitlement, you can still claim the Faculty and Department top-up reward.',
@@ -343,7 +343,7 @@ en:{
    <li>The applicant's affiliation in the publication must include at least <b>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University</b></li>
    <li>Each publication can claim the Department top-up reward only once</li>
    <li>The publication must be no more than 1 year old, counted from its publication date to the application date, and must not conflict with the university's rules on duplicate funding</li></ul></li>
-  <li><b>Journal articles</b>: department money is not an APC. An applicant can claim at all three levels, applying to the University, the Faculty and the Department in that order:<ul style="margin:4px 0 0;padding-left:20px">
+  <li><b>Journal articles</b>: department money is not an APC. An applicant can claim at all three levels, applying to the University, the Faculty and the Department in that order. Quartiles (Q1–Q4) follow Scopus or SCImago Journal &amp; Country Rank (SJR), per Source 1.<ul style="margin:4px 0 0;padding-left:20px">
    <li><b>University:</b> apply first, separately. You can still claim the Faculty and Department top-up after receiving the university entitlement.</li>
    <li><b>Faculty:</b> only for articles listed in the Faculty's monthly indicator report; the Faculty compiles them and sends the list to the Department</li>
    <li><b>Department:</b> Q1 is paid from the list the Faculty sends; for Q2–Q4, submit a request with proof of publication directly to the Department office</li></ul></li>
@@ -409,11 +409,12 @@ function render(){
     let rows;
     if(isJ(p.t)){
       const[a,fc]=AMT[p.t],u=UR[p.t][0];
-      rows=`<div class="r top"><div class="k">${L.fR}<small>${L.srcD}</small></div><div class="amt">${f(a-fc)}</div></div>`+
-      (fc?`<div class="r fac"><div class="k">${L.fR}<small>${L.srcFac}</small></div><div class="amt">${f(fc)}</div></div>`:'')+
+      rows=`<div class="r top"><div class="k">${L.fR} <span class="nt">${L.fRn}</span><small>${L.srcD}</small></div><div class="amt">${f(a-fc)}</div></div>`+
+      (fc?`<div class="r fac"><div class="k">${L.fR} <span class="nt">${L.fRn}</span><small>${L.srcFac}</small></div><div class="amt">${f(fc)}</div></div>`:'')+
       `<div class="r uni"><div class="k">${L.pUni}<small>${L.pPick}</small></div><div class="choice"><span class="opt">${L.pRw} <b>${f(u)}</b></span><span class="or">${L.pOr}</span><span class="opt">${L.pApc} <b>${L.pAct}${p.t==='q1'?'':' ≤ 60,000'}</b></span></div></div>`;
     }else{const lk=(u,x)=>`<a class="opt" href="${u}" target="_blank" rel="noopener">${x} ↗</a>`;
-      rows=`<div class="r gr"><div class="k">${L.pGr}</div><div class="choice">${lk(UNI,L.pGrU)}<span class="or">${L.pAnd}</span>${lk(FAC,L.pGrF)}</div></div>`;}
+      rows=`<div class="r gr"><div class="k">${L.pGr}</div><div class="choice">${lk(UNI,L.pGrU)}<span class="or">${L.pAnd}</span>${lk(FAC,L.pGrF)}</div></div>`+
+      (p.t==='ca'?`<div class="r sp"><div class="k">${L.pSp}<small>${L.pSpS}</small></div><div class="amt">${L.pAct}</div></div>`:'');}
     return `<li><div><b>${L.T[p.t]}</b><div class="pm">${rows}</div></div></li>`;
   }).join('');
   $('perp').hidden=n===0;$('asof').hidden=n===0;
