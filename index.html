@@ -51,7 +51,6 @@ header.top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;pa
 .sec-nav a{color:var(--header-text);text-decoration:none;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--nav-border)}
 .sec-nav a:hover{background:var(--nav-hover)}
 .controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
-.ctl-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-right:6px;font-weight:600}
 .seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:2px;background:var(--surface)}
 .seg button{appearance:none;border:0;background:transparent;color:var(--text);font-size:13px;font-weight:600;padding:5px 14px;border-radius:999px;cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink)}
@@ -183,8 +182,7 @@ footer b{color:var(--text)}
 <p class="sub" data-i="sub"></p>
 </div>
 <nav class="sec-nav" aria-label="Sections"><a href="#s1" data-i="n1"></a><a href="#s2" data-i="n2"></a><a href="#plan" data-i="nP"></a><a href="#s3" data-i="n3"></a></nav>
-<div class="controls"><span class="ctl-label" data-i="langL"></span>
-<div class="seg" role="group" aria-label="Language"><button type="button" data-l="th" aria-pressed="true">ไทย</button><button type="button" data-l="en" aria-pressed="false">English</button></div></div>
+<div class="controls"><div class="seg" role="group" aria-label="Language"><button type="button" data-l="th" aria-pressed="true">ไทย</button><button type="button" data-l="en" aria-pressed="false">English</button></div></div>
 </div></header>
 
 <main class="wrap">
@@ -238,7 +236,7 @@ const D={
 th:{
  title:'PubPay',
  sub:'Entitlement simulator · CPECMU · Unofficial',
- langL:'ภาษา',n1:'จำลองสิทธิ์',n2:'เงื่อนไข',nP:'แผน',n3:'อ้างอิง',
+ n1:'จำลองสิทธิ์',n2:'เงื่อนไข',nP:'แผน',n3:'อ้างอิง',
 
  legal:'<p><b>ผลลัพธ์เป็นการประมาณการ</b> สิทธิ์จริงขึ้นกับการพิจารณาของคณะและภาควิชา ตามประกาศและมติที่ใช้บังคับ</p><p>หน้านี้ไม่ส่งข้อมูลที่ท่านกรอกไปที่ใด ภาษาที่เลือกจะจำไว้ในเบราว์เซอร์นี้เท่านั้น</p>',
  h1:'จำลองสิทธิ์',h1h:'ลองเลือกประเภทผลงานที่มีหรือกำลังจะมี เพื่อดูสิทธิ์ที่คาดว่าจะได้รับ',
@@ -306,7 +304,7 @@ th:{
 en:{
  title:'PubPay',
  sub:'Entitlement simulator · CPECMU · Unofficial',
- langL:'Language',n1:'Simulator',n2:'Conditions',nP:'Plans',n3:'Sources',
+ n1:'Simulator',n2:'Conditions',nP:'Plans',n3:'Sources',
 
  legal:'<p><b>Results are estimates.</b> Final amounts depend on Faculty and Department review under the announcements and resolutions in force.</p><p>This page sends nothing you enter anywhere. Your language choice is remembered in this browser only.</p>',
  h1:'Entitlement simulator',h1h:'Try the publication types you have or expect to have, and see what you would likely receive.',
